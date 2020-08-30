@@ -30,11 +30,16 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php
+                                foreach($listbarang as $brg)
+                                {
+                            ?>
+                            
                             <tr>
                                 <td>1</td>
-                                <td>Tas Branded</td>
-                                <td>Tas</td>
-                                <td>PT TAS</td>
+                                <td><?=$brg['nm_barang']?></td>
+                                <td><?=$brg['jenis']?></td>
+                                <td><?=$brg['id_supplier']?></td>
                                 <td>20</td>
                                 <td>
                                 
@@ -55,6 +60,9 @@
                                 
                                 </td>
                             </tr>
+                            
+                            
+                            <?php }  ?>
                            
                         </tbody>
                     

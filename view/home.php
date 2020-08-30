@@ -1,3 +1,15 @@
+<?php
+        if(empty($_SESSION['username']))
+        {
+            header('location:?p=login');
+        }
+        
+        $user=$_SESSION['username'];
+        //$aktif=$induk->useraktif($con,$user);
+        
+
+        
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +29,8 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+    
+  <link rel="icon" href="img/katerina.png">
   <!-- Morris chart -->
   <link rel="stylesheet" href="bower_components/morris.js/morris.css">
   <!-- jvectormap -->
@@ -29,6 +43,7 @@
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -87,7 +102,7 @@
         </div>
         <div class="pull-left info">
           <p>Admin Katerina</p>
-          <a href="#" class="btn-xs btn-danger">Logout</a>
+          <a href="?p=logout" class="btn-xs btn-danger">Logout</a>
         </div>
       </div>
       <!-- search form -->
@@ -96,15 +111,15 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MENU</li>
           
-         <li>
-          <a href="?p=">
+         <li class="<?=$beranda?>" >
+          <a href="?p=main">
             <i class="fa fa-home"></i> <span>Beranda</span>
           </a>
         </li>
           
        
         
-         <li class="treeview">
+         <li class="treeview <?=$in_barang?>">
           <a href="#">
             <i class="fa fa-dropbox"></i> <span>Barang</span>
             <span class="pull-right-container">
@@ -112,16 +127,23 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="?p=jenis"><i class="fa fa-circle-o"></i> Jenis Barang</a></li>
-            <li><a href="?p=supplier"><i class="fa fa-circle-o"></i> Supplier</a></li>
-            <li><a href="?p=barang"><i class="fa fa-circle-o"></i> Data Barang</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Stok Barang</a></li>
+            <li class="<?=$hal_jenis?>"><a href="?p=jenis"><i class="fa fa-circle-o"></i> Jenis Barang</a></li>
+            <li class="<?=$hal_sup?>"><a href="?p=supplier"><i class="fa fa-circle-o"></i> Supplier</a></li>
+            <li class="<?=$hal_barang?>"><a href="?p=barang"><i class="fa fa-circle-o"></i> Data Barang</a></li>
+            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Stok Barang</a></li>
           </ul>
         </li>
           
          
-            <li>
-          <a href="#">
+          <li class="<?=$hal_member?>">
+          <a href="?p=member">
+            <i class="fa fa-users"></i> <span>Member</span>
+          </a>
+        </li>
+          
+          
+            <li class="<?=$hal_trans?>">
+          <a href="?p=transaksi">
             <i class="fa fa-money"></i> <span>Transaksi</span>
           </a>
         </li>
@@ -168,30 +190,36 @@
       
      
      <?php 
-     if (!empty($_GET['p']))
-     {
-         $p=strtolower($_GET['p']);
-         if($p=='barang')
-         {
-           require_once('view/barang.php');
-         }
-         elseif($p=='jenis')
-         {
-           require_once('view/jenis.php');
-         }
-         elseif($p=='supplier')
-         {
-             require_once('view/supplier.php');
-         }
-         else
-         {
-            echo '<script>window.history.back(-1);</script>';
-         }
-     }
+   
+       if ($_GET['p'] == "main")
+       {
+           require_once("beranda.php");
+       }
+      elseif ($_GET['p'] == "jenis")
+      {
+          require_once("jenis.php");
+      }
+      elseif ($p=="barang")
+      {
+          require_once("barang.php");
+      }
+      elseif($p=="supplier")
+      {
+          require_once("supplier.php");
+      }
+      elseif($p=="member")
+      {
+          require_once("member.php");
+      }
+      elseif ($p=="transaksi")
+      {
+          require_once("transaksi.php");
+      }
       else
-         {
-            require_once('view/beranda.php');
-         }
+      {
+          echo "anda salah alamat";
+      }
+     
     
      ?>
       
@@ -228,7 +256,8 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary">Tampilkan</button>
+                <a href="#" class="btn btn-primary pull-right">Tampilkan Semua</a>
+                <a href="#" class="btn btn-primary pull-right">Tampilkan</a>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -343,14 +372,37 @@
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script src="plugins/toastr/toastr.min.js"></script>
+<?php //echo '<script>toastr.warning("Selamat Datang");</script>'; 
+    if (!empty($_GET['ps']))
+    {
+        $ps=bukarhs($_GET['ps']);
+        echo '<script>toastr.info("'.$ps.'");</script>'; 
+    }
+    
+    if (!empty($_GET['pse']))
+    {
+        $pse=bukarhs($_GET['pse']);
+        echo '<script>toastr.warning("'.$pse.'");</script>'; 
+    }
+?>
+
+    
+
 
 <!-- DataTables -->
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
 <script>
-  $(function () {
+     $(function () {
+    //Initialize Select2 Elements
     $('.select2').select2()
+     })
+    
+    
+  $(function () {
+    
     $('#example1').DataTable()
     $('#example2').DataTable({
       'paging'      : true,
@@ -362,5 +414,28 @@
     })
   })
 </script>
+    
+<script>
+    $(document).ready(function() {
+       
+     $('a[data-confirm]').click(function(ev) {
+          var href = $(this).attr('href');
+ 
+          if(!$('#dataConfirmModal').length) {
+           $('body').append('<div id="dataConfirmModal" class="modal fade bs-modal-sm" tableindex="-1" role="dialog" aria-labelledby="dataConfirmLabel" aria-hiden="true"><div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header"><h4 class="modal-title" id="dataConfrimLabel">Konfirmasi</h4><button type="button" class="close" data-dismiss="modal" aria-hiden="ture">&times;</button></div><div class="modal-body"></div><div class="modal-footer"><button type="button" class="btn btn-default btn-sx" data-dismiss="modal" aria-hiden=""true"> Tidak </button><a class="btn btn-danger btn-sx" aria-hiden="true" id="dataConfirmOK"> Ya </a></div></div></div></div>');
+           }
+ 
+          $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
+ 
+          $('#dataConfirmOK').attr('href',href);
+ 
+          $('#dataConfirmModal').modal({show:true});
+          return false;
+         });
+       
+    });
+    </script>
+    
+    
 </body>
 </html>

@@ -1747,7 +1747,7 @@
 			// Backwards compatibility - if there is no sEmptyTable given, then use the same as
 			// sZeroRecords - assuming that is given.
 			if ( ! lang.sEmptyTable && zeroRecords &&
-				defaults.sEmptyTable === "Tidak ada data..." )
+				defaults.sEmptyTable === "No data available in table" )
 			{
 				_fnMap( lang, lang, 'sZeroRecords', 'sEmptyTable' );
 			}
@@ -11342,7 +11342,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sFirst": "Pertama",
+				"sFirst": "First",
 	
 	
 				/**
@@ -11365,7 +11365,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sLast": "Terakhir",
+				"sLast": "Last",
 	
 	
 				/**
@@ -11388,7 +11388,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sNext": "Selanjutnya",
+				"sNext": "Next",
 	
 	
 				/**
@@ -11411,7 +11411,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sPrevious": "Sebelumnya"
+				"sPrevious": "Previous"
 			},
 	
 			/**
@@ -11434,7 +11434,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "Tidak ada Data",
+			"sEmptyTable": "No data available in table",
 	
 	
 			/**
@@ -11466,7 +11466,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Tampilan _START_ sd _END_ of _TOTAL_ data",
+			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
 	
 	
 			/**
@@ -11487,7 +11487,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "Menampilkan 0 sd 0 pada 0 data",
+			"sInfoEmpty": "Showing 0 to 0 of 0 entries",
 	
 	
 			/**
@@ -11672,7 +11672,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sProcessing": "Memproses...",
+			"sProcessing": "Processing...",
 	
 	
 			/**
@@ -11707,7 +11707,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Pencarian:",
+			"sSearch": "Search:",
 	
 	
 			/**
@@ -11765,7 +11765,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sZeroRecords": "Kata Kunci Tidak Cocok..."
+			"sZeroRecords": "No matching records found"
 		},
 	
 	

@@ -12,7 +12,7 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
+              <h3><?=$jml_barang[0]?></h3>
 
               <p>Data Barang</p>
             </div>
@@ -27,7 +27,7 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>150</h3>
+              <h3><?=$jml_sup[0]?></h3>
 
               <p>Supplier</p>
             </div>
@@ -37,6 +37,23 @@
             <a href="?p=supplier" class="small-box-footer">Info Lengkap <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
+          
+          
+          <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3><?=$jml_member[0]?></h3>
+
+              <p>Jumlah Member</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-bag"></i>
+            </div>
+            <a href="?p=member" class="small-box-footer">Info Lengkap <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+          
           
           <div class="col-lg-3 col-xs-6">
           <!-- small box -->
@@ -52,11 +69,6 @@
             <a href="#" class="small-box-footer">Info Lengkap <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-          
-          
-          
-          
-          
           
     </div>
     

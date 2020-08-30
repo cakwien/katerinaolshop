@@ -26,19 +26,21 @@
                                 
                             </tr>
                         </thead>
+                       
                         <tbody>
+                        <?php
+                            $no=1;
+                            foreach($listjenis as $j)
+                            {
+                            ?>
+                            
                             <tr>
-                                <td>1</td>
-                                <td>Tas Branded</td>
-                                <td>Tas Branded</td>
+                                <td><?=$no?></td>
+                                <td><?=$j['jenis']?></td>
+                                <td><a href="?p=jenis&hapus=<?=$j['id_jenis']?>" class="btn-sm btn-danger" data-confirm="Hapus Jenis <?=$j['jenis']?> ?"><i class="fa fa-trash"></i> Hapus</a></td>
                                
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Tas Branded</td>
-                                <td>Tas Branded</td>
-                                
-                            </tr>
+                            <?php $no++; } ?>
                         </tbody>
                     
                     </table>
@@ -53,6 +55,7 @@
     
     <div class="modal fade" id="tambahdata">
           <div class="modal-dialog">
+           <form method="post" action="">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -60,26 +63,21 @@
                 <h4 class="modal-title">Tambah Data Jenis Barang</h4>
               </div>
               <div class="modal-body">
-               <form>
+               
                 
                    
                   <div class="form-group">
                       <label>Jenis Barang</label>
-                      <input type="text" name="nm_barang" class="form-control">
+                      <input type="text" name="jenis" class="form-control">
                   </div>
-                 
-                  
-              </form>
-                   
-                  
                   
                   
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary">Tambah</button>
+                <input type="submit" name="simpan" value="Tambah" class="btn btn-primary">
               </div>
-            </div>
+            </div> </form>
             <!-- /.modal-content -->
           </div>
           <!-- /.modal-dialog -->
