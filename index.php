@@ -36,6 +36,12 @@ $supplier = new supplier;
 include('mod/member.php');
 $member = new member;
 
+include('mod/stok.php');
+$stok = new stok;
+
+include('mod/transaksi.php');
+$penjualan = new penjualan;
+
 include('mod/rahasia.php');
 
 include('control/routing.php');

@@ -48,7 +48,7 @@
               <p>Jumlah Member</p>
             </div>
             <div class="icon">
-              <i class="ion ion-bag"></i>
+              <i class="fa  fa-user-secret"></i>
             </div>
             <a href="?p=member" class="small-box-footer">Info Lengkap <i class="fa fa-arrow-circle-right"></i></a>
           </div>
@@ -57,9 +57,9 @@
           
           <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-green">
+          <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>150</h3>
+              <h3><?=$jml_penjualan[0]?></h3>
 
               <p>Jumlah Transaksi</p>
             </div>

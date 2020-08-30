@@ -30,6 +30,7 @@ if (!empty($_GET['p']))
         $jml_barang=$barang->hitungbarang($con);
         $jml_sup=$supplier->hitungsupplier($con);
         $jml_member=$member->hitungmember($con);
+        $jml_penjualan=$penjualan->hitungpenjualan($con);
         $beranda="active";
         include("view/home.php");
     }
@@ -58,6 +59,21 @@ if (!empty($_GET['p']))
     {
         
         $listbarang=$barang->tampil($con);
+        $listjenis=$jenis->tampil($con);
+        $jml_barang=$barang->hitungbarang($con);
+        if (!empty($_POST['simpan']))
+        {
+            $kd_barang = $_POST['kd_barang'];
+            $nm_barang = $_POST['nm_barang'];
+            $id_jenis  = $_POST['id_jenis'];
+            $stok_awal = $_POST['stok_awal'];
+            $satuan    = $_POST['satuan'];
+            $harga_beli = $_POST['harga_beli'];
+            $harga_jual = $_POST['harga_jual'];
+            $time = time();
+            $input=$barang->simpan($con,$kd_barang,$nm_barang,$id_jenis,$satuan,$stok_awal,$harga_beli,$harga_jual);
+        }
+        
         
         $in_barang="active";
         $hal_barang="active";
@@ -116,6 +132,7 @@ if (!empty($_GET['p']))
     //TRANSAKSI
     else if($p=="transaksi")
     {
+        $listbarang = $barang->tampil($con);
         $hal_trans="active";
         include('view/home.php');
     }

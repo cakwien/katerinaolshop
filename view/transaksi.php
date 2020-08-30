@@ -24,7 +24,7 @@
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Nama Barang</label>
 
-                  <div class="col-sm-6">
+                  <div class="col-sm-8">
                     <input type="text" class="form-control" placeholder="Nama Barang" readonly>
                   </div>
                 </div>
@@ -100,10 +100,6 @@
         
         <div class="col-md-12">
             <div class="box box-danger">
-                <div class="box-header">
-                    <div class="box-title">No. Nota</div>
-                </div>
-                
                 <div class="box-body">
                      <table class="table table-bordered table-hover">
                         <thead>
@@ -192,17 +188,27 @@
                   <table id="example1" class="table table-bordered table-hover">
                     <thead>
                       <tr>
+                        <th>Kode Barang</th>  
                         <th>Nama Barang</th>  
                         <th>Jenis</th>  
+                        <th>Stok</th>  
                         <th>Harga</th>  
                       </tr>
                     </thead>
                     <tbody>
+                     <?php 
+                        foreach($listbarang as $brg){
+                            $stok_harga=$stok->stok_harga($con,$brg['id_barang']);
+                        ?>
                     <tr>
-                        <td></td>    
-                        <td></td>    
-                        <td></td>    
+                        <td><?=$brg['kd_barang']?></td>    
+                        <td><?=$brg['nm_barang']?></td>    
+                        <td><?=$brg['jenis']?></td>    
+                        <td><?=$brg['stok_akhir']?></td>    
+                        <td><?=$stok_harga['harga_jual']?></td>    
+                          
                     </tr>  
+                       <?php } ?>
                     </tbody>
                   </table>
                   
