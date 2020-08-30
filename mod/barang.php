@@ -27,7 +27,7 @@ class barang
         $dtcek=mysqli_num_rows($cek);
         if ($dtcek > 0)
         {
-            $pesan="Kode barang tersebut sudah ada...";
+            $pesan="Kode ".$kd_barang." sudah pernah dipakai...";
             header('location:?p=barang&pse='.rhs($pesan));
         }
         else
@@ -42,17 +42,17 @@ class barang
                 $qtambahsok = mysqli_query($con,"insert into pembelian value ('','$time','$id','$stok_awal','$harga_beli','$harga_jual')");
                 if ($qtambahstok)
                 {
-                    $pesan="Barang berhasil ditambahkan...";
+                    $pesan="Barang ".$nm_barang." ditambahkan...";
                     header('location:?p=barang&ps='.rhs($pesan));
                 }else
                 {
-                    $pesan="Barang gagal ditambahkan...";
+                    $pesan="Barang ".$nm_barang." ditambahkan...";
                     header('location:?p=barang&pse='.rhs($pesan));
                 }
             }
             else
             {
-                $pesan="Barang gagal ditambahkan...";
+                $pesan="Barang ".$nm_barang." ditambahkan...";
                 header('location:?p=barang&pse='.rhs($pesan));
             }
         }

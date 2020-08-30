@@ -7,11 +7,11 @@ class jenis
         $q=mysqli_query($con,"insert into jenis value('','$jenis')");
         if ($q)
         {
-            $pesan="Jenis barang berhasil ditambahkan...";
+            $pesan="Jenis ".$jenis." berhasil ditambahkan...";
             header('location:?p=jenis&ps='.rhs($pesan).'');
         }else
         {
-            $pesan="Jenis barang gagal ditambahkan...";
+            $pesan="Jenis ".$jenis." gagal ditambahkan...";
             header('location:?p=jenis&pse='.rhs($pesan).'');
         }
     }
