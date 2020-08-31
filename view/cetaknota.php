@@ -1,6 +1,10 @@
+<script>
+    window.print();
+</script>
+<meta http-equiv="refresh" content="3;url=?p=transaksi&n=<?php echo $nt=$penjualan->nota($con,"","8"); ?>">
 <style>
     .judul{
-        font-size:10px;
+        font-size:11px;
         font-family: 'Trebuchet MS';
     }
     hr{
@@ -8,16 +12,24 @@
     }
     table{
         font-family: 'Trebuchet MS'; 
-        font-size:10px;
+        font-size:11px;
     }
 </style>
+
+<?php
+
+$a=$nota->tampilbayar($con,$_GET['nota']);
+$item=$nota->hitungitem($con,$_GET['nota']);
+?>
+
+
 
 <div class="judul">Toko 51 (Katerina Olshop)</div>
 <div class="judul">Jalan Banyuwangi</div>
 <div class="judul">Telp. xxxxxxxxxxxxxx</div>
 <hr>
 
-<div class="judul">00000000001 &nbsp; &nbsp; 11/11/2020 00:00</div>
+<div class="judul"><?php echo $_GET['nota']; ?> &nbsp; &nbsp; <?php echo date('d/M/Y H:i',$a['time']); ?></div>
 <hr>
 <table style="width: 100%; ">
 <tbody>
@@ -28,44 +40,49 @@
 <td>Hrg</td>
 <td>Total</td>
 </tr>
+    <?php
+    
+   
+    $data=$nota->cetaknota($con,$_GET['nota']);
+    foreach($data as $nt)
+    {
+    ?>
 <tr>
-    <td colspan="5">Baju Taqwa Anak Putih</td>
+    <td colspan="5"><?=$nt['nm_barang']?></td>
 </tr>
 <tr>
     <td>&nbsp;</td>
-    <td>1</td>
-    <td>PCS</td>
-    <td>75.000</td>
-    <td>75.000</td>
+    <td><?=$nt['jumlah_jual']?></td>
+    <td><?=$nt['satuan']?></td>
+    <td><?=rp($nt['harga_jual'])?></td>
+    <td><?=rp($nt['total_harga'])?></td>
 </tr>
+    <?php } ?>
 </tbody>
 </table>
 <hr>
+
+
 <table style="width:80%;" class="judul">
     <tr>
         <td>JUMLAH ITEM</td>
         <td>:</td>
-        <td>1</td>
+        <td style="text-align:right">( <?=$item[0]?> )</td>
     </tr>
     <tr>
         <td>HARGA TOTAL</td>
         <td>:</td>
-        <td>75.000</td>
-    </tr>
-    <tr>
-        <td>DISC</td>
-        <td>:</td>
-        <td>75.000</td>
+        <td style="text-align:right">Rp. <?=rp($a['harga_total'])?></td>
     </tr>
     <tr>
         <td>BAYAR</td>
         <td>:</td>
-        <td>75.000</td>
+        <td style="text-align:right">Rp. <?=rp($a['bayar'])?></td>
     </tr>
     <tr>
         <td>KEMBALI</td>
         <td>:</td>
-        <td>75.000</td>
+        <td style="text-align:right">Rp. <?=rp($a['kembali'])?></td>
     </tr>
 </table>
 <hr>

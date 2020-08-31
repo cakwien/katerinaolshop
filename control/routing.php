@@ -159,6 +159,7 @@ if (!empty($_GET['p']))
                     $e=$_POST['diskon'];
                     $f = (floatval($c) * floatval($d)) - floatval($e); //harga x jumlah
                     mysqli_query($con,"insert into penjualan value ('','$b','$a','$d','$c','$f','$e','$time')");
+                    header('location:?p=transaksi&n='.$b);
                     
                 }
             }
@@ -167,7 +168,7 @@ if (!empty($_GET['p']))
             {
                 $kembali = $_POST['bayar'] - $_POST['total_harga'];
                 $waktu = time();
-                $pay=$penjualan->bayar($con,$_GET['n'],$_POST['bayar'],$kembali,$waktu);
+                $pay=$penjualan->bayar($con,$_GET['n'],$_POST['total_harga'],$_POST['bayar'],$kembali,$waktu);
             }
             
         }
@@ -178,7 +179,6 @@ if (!empty($_GET['p']))
     
     else if($p=="ctnota")
     {
-        $n=$penjualan->nota($con,$awalan,$lebar);
         include('view/cetaknota.php');
     }
     

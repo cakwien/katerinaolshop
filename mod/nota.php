@@ -12,6 +12,20 @@ class nota{
         }
         return $list;
     }
+    
+    function tampilbayar($con,$nota)
+    {
+        $q=mysqli_query($con,"select * from pembayaran where nota = '$nota'");
+        $dt=mysqli_fetch_array($q);
+        return $dt;
+    }
+    
+    function hitungitem($con,$nota)
+    {
+        $q=mysqli_query($con,"select count(id_barang) from penjualan where nota = '$nota'");
+        $dt=mysqli_fetch_array($q);
+        return $dt;
+    }
 }
 
 ?>

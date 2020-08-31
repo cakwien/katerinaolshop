@@ -45,7 +45,15 @@
      
      function tambahbarang($con,$nota,$id_barang,$jumlah_jual,$harga_jual,$total_harga,$diskon,$time)
      {
-         mysqli_query($con,"insert into penjualan value('','$nota','$id_barang','$jumlah_jual','$harga_jual','$total_harga','$diskon','$time')");
+         $q=mysqli_query($con,"insert into penjualan value('','$nota','$id_barang','$jumlah_jual','$harga_jual','$total_harga','$diskon','$time')");
+         if ($q)
+         {
+             header('location:?p=transaksi&n='.$nota);
+         }else
+         {
+             $pesan="Barang Tidak ditemukan...";
+             header('location:?p=transaksi&n='.$nota.'&pse='.rhs($pesan));
+         }
      }
      
      function tampilbarang($con,$nota)//-> tampil barang yang masuk dilist pembelian
@@ -68,22 +76,22 @@
      
      function harga_bayar($con,$nota)
      {
-         $q=mysqli_query($con,"select sum(harga_jual) from penjualan where nota = '$nota'");
+         $q=mysqli_query($con,"select sum(total_harga) from penjualan where nota = '$nota'");
          $dt=mysqli_fetch_array($q);
          return $dt;
      }
      
-     function bayar($con,$nota,$bayar,$kembali,$time)
+     function bayar($con,$nota,$total_harga,$bayar,$kembali,$time)
      {
-         $q=mysqli_query($con,"insert into pembayaran value('','$nota','$bayar','$kembali','$time')");
+         $q=mysqli_query($con,"insert into pembayaran value('','$nota',$total_harga,'$bayar','$kembali','$time')");
          if ($q)
          {
-             $pesan="Pembayaran Berhasil...";
-             header('location:?p=transaksi&ps='.rhs($pesan));
+             
+            header('location:?p=ctnota&nota='.$nota);
          }else
          {
              $pesan="Pembayaran Gagal...";
-             header('location:?p=transaksi&pse='.rhs($pesan));
+             header('location:?p=transaksi&n='.$nota.'&pse='.rhs($pesan));
          }
      }
      

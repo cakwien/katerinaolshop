@@ -42,6 +42,9 @@ $stok = new stok;
 include('mod/transaksi.php');
 $penjualan = new penjualan;
 
+include('mod/nota.php');
+$nota = new nota;
+
 include('mod/rahasia.php');
 
 include('control/routing.php');
