@@ -52,7 +52,7 @@
                                 <td>
                                 
                                     <div class="dropdown">
-                                       <a title="Hapus Barang" class="btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                       <a href="?p=barang&hapus=<?=$brg['id_barang']?>" title="Hapus Barang" class="btn-sm btn-danger" data-confirm="Hapus <?=$brg['nm_barang']?>?. Ketika menghapus barang akan menghapus data stok dan pembelian barang tersebut."><i class="fa fa-trash"></i></a>
                                        <a title="Tambah Stok" class="btn-sm btn-success"><i class="fa fa-plus"></i></a>
                                        <a title="Edit Barang" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     </div>

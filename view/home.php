@@ -143,7 +143,7 @@
           
           
             <li class="<?=$hal_trans?>">
-          <a href="?p=transaksi">
+          <a href="?p=transaksi&n=<?php echo $nt=$penjualan->nota($con,"","8"); ?>">
             <i class="fa fa-money"></i> <span>Transaksi</span>
           </a>
         </li>

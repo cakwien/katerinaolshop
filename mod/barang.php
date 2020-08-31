@@ -59,6 +59,28 @@ class barang
         
     }
     
+    function hapus($con,$id_barang)
+    {
+        $q=mysqli_query($con,"delete from barang where id_barang = '$id_barang'");
+        if ($q)
+        {
+            $q2=mysqli_query($con,"delete from pembelian where id_barang = '$id_barang'");
+            if ($q2)
+            {
+                $pesan="Barang berhasil di hapus";
+                header('location:?p=barang&ps='.rhs($pesan));
+            }else
+            {
+                $pesan="Barang gagal di hapus";
+                header('location:?p=barang&pse='.rhs($pesan));
+            }
+        }else
+        {
+            $pesan="Barang gagal di hapus";
+            header('location:?p=barang&pse='.rhs($pesan));
+        }
+    }
+    
 }
 
 ?>

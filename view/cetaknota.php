@@ -12,7 +12,7 @@
     }
 </style>
 
-<div class="judul">Katerina Olshop</div>
+<div class="judul">Toko 51 (Katerina Olshop)</div>
 <div class="judul">Jalan Banyuwangi</div>
 <div class="judul">Telp. xxxxxxxxxxxxxx</div>
 <hr>
@@ -22,11 +22,11 @@
 <table style="width: 100%; ">
 <tbody>
 <tr>
-<td>BARANG (1)</td>
+<td>Barang</td>
 <td>QTY</td>
-<td>SATUAN</td>
-<td>HARGA</td>
-<td>TOTAL</td>
+<td>Sat</td>
+<td>Hrg</td>
+<td>Total</td>
 </tr>
 <tr>
     <td colspan="5">Baju Taqwa Anak Putih</td>
@@ -41,7 +41,12 @@
 </tbody>
 </table>
 <hr>
-<table style="width: 40%;" class="judul">
+<table style="width:80%;" class="judul">
+    <tr>
+        <td>JUMLAH ITEM</td>
+        <td>:</td>
+        <td>1</td>
+    </tr>
     <tr>
         <td>HARGA TOTAL</td>
         <td>:</td>
@@ -66,9 +71,3 @@
 <hr>
 <div class="judul">BARANG YANG SUDAH DI BELI TIDAK DAPAT DI TUKAR/DIKEMBALIKAN</div>
 <div class="judul">Terimakasih sudah berbelanja di toko kami...</div>
-
-
-
-
-
-

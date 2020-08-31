@@ -132,11 +132,55 @@ if (!empty($_GET['p']))
     //TRANSAKSI
     else if($p=="transaksi")
     {
-        $listbarang = $barang->tampil($con);
+         
+        if (!empty($_GET['n']))
+        {
+            $nota = $_GET['n'];
+            $tampil_pembelian=$penjualan->tampilbarang($con,$nota);
+            if (!empty($_GET['id_barang']))
+            {
+                $id_barang=$_GET['id_barang'];
+                $show_brg=$penjualan->barang_harga($con,$id_barang);
+                $kd_barang=$show_brg['kd_barang'];
+                $id_barang=$show_brg['id_barang'];
+                $nm_barang=$show_brg['nm_barang'];
+                $harga_jual=$show_brg['harga_jual'];
+                
+                if (!empty($_POST['jumlah_jual']))
+                {
+                    $time = time();
+                   // $total_harga = ($_POST['harga_jual'] * $_POST['jumlah_jual']) - $_POST['diskon'];
+                   // $input=$penjualan->tambahbarang($con,$_POST['nota'],$_POST['id_barang'],$_POST['jumlah_jual'],$_POST['harga_jual'],$total_harga,$_POST['diskon'],$time);
+                    //header('location?p=transaksi&n='.$_POST['nota']);
+                    $a=$_POST['id_barang'];
+                    $b=$_POST['nota'];
+                    $c=$_POST['harga_jual'];
+                    $d=$_POST['jumlah_jual'];
+                    $e=$_POST['diskon'];
+                    $f = (floatval($c) * floatval($d)) - floatval($e); //harga x jumlah
+                    mysqli_query($con,"insert into penjualan value ('','$b','$a','$d','$c','$f','$e','$time')");
+                    
+                }
+            }
+            
+            if (!empty($_POST['pay']))
+            {
+                $kembali = $_POST['bayar'] - $_POST['total_harga'];
+                $waktu = time();
+                $pay=$penjualan->bayar($con,$_GET['n'],$_POST['bayar'],$kembali,$waktu);
+            }
+            
+        }
+        
         $hal_trans="active";
         include('view/home.php');
     }
     
+    else if($p=="ctnota")
+    {
+        $n=$penjualan->nota($con,$awalan,$lebar);
+        include('view/cetaknota.php');
+    }
     
     else
     {

@@ -13,7 +13,7 @@
 
                   <div class="col-sm-6">
                     <div class="input-group">
-                        <input type="text" class="form-control">
+                        <input type="text" name="kd_barang" value="<?php if(!empty($show_brg['kd_barang'])){echo $show_brg['kd_barang'];} else {echo "";} ?>" class="form-control" readonly>
                         <div class="input-group-btn">
                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cari"><i class="fa fa-search"></i></button>
                         </div>
@@ -25,7 +25,17 @@
                   <label class="col-sm-3 control-label">Nama Barang</label>
 
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" placeholder="Nama Barang" readonly>
+                    <input type="text" class="form-control" placeholder="Nama Barang" value="<?php if(!empty($show_brg['nm_barang'])){echo $show_brg['nm_barang'];} else {echo "";} ?>" readonly name="nm_barang">
+                      <input type="hidden" name="id_barang" value="<?php if(!empty($show_brg['id_barang'])){echo $show_brg['id_barang'];} else {echo "";} ?>">
+                      <input type="hidden" name="nota" value="<?php if(!empty($_GET['n'])){echo $_GET['n'];} else {echo "";} ?>">
+                  </div>
+                </div>
+                  
+                  <div class="form-group">
+                  <label class="col-sm-3 control-label">Harga Jual</label>
+
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="Nama Barang" readonly name="harga_jual" value="<?php if(!empty($show_brg['harga_jual'])){echo $show_brg['harga_jual'];} else {echo "";} ?>">
                   </div>
                 </div>
                   
@@ -33,7 +43,14 @@
                   <label class="col-sm-3 control-label">Jumlah</label>
 
                   <div class="col-sm-2">
-                    <input type="text" class="form-control" placeholder="...">
+                    <input type="text" class="form-control" placeholder="..." name="jumlah_jual" required>
+                  </div>
+                    
+                     <label class="col-sm-2 control-label">Diskon</label>
+                    
+                    <div class="col-sm-4">
+                        
+                    <input type="text" class="form-control" placeholder="Diskon" name="diskon">
                   </div>
                 </div>
                   
@@ -43,7 +60,7 @@
               <!-- /.box-body -->
               <div class="box-footer">
                
-                <button type="submit" class="btn btn-success pull-right">Tambahkan</button>
+                <button type="submit" name="tambah" class="btn btn-success pull-right">Tambahkan</button>
               </div>
               <!-- /.box-footer -->
             </form>
@@ -65,7 +82,7 @@
                   <label class="col-sm-3 control-label">Nota</label>
 
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Nama Barang" readonly>
+                    <input type="text" name="nota" value="<?php echo $nt=$penjualan->nota($con,"","8");?>" class="form-control" placeholder="Nama Barang" readonly>
                   </div>
                 </div>
                   
@@ -105,25 +122,35 @@
                         <thead>
                             <tr>
                                 <th>Nama Barang</th>
-                                <th>Jenis</th>
-                                <th>Qty</th>
-                                <th>Harga</th>
+                                <th>QTY</th>
+                                <th>Satuan</th>
+                                <th>Diskon</th>
+                                <th>Harga Satuan</th>
+                                <th>Total Harga</th>
                                 <th>#</th>
                             </tr> 
                         </thead>
                          <tbody>
+                             <?php 
+                             $tampil_pembelian=$penjualan->tampilbarang($con,$_GET['n']);
+                             foreach($tampil_pembelian as $isi){
+                             ?>
                             <tr>
-                                <td></td> 
-                                <td></td> 
-                                <td></td> 
-                                <td></td> 
-                                <td><a class="btn-xs btn-danger"><i class="fa fa-trash"></i> Batal</a></td> 
+                                <td><?=$isi['nm_barang']?></td> 
+                                <td><?=$isi['jumlah_jual']?></td> 
+                                <td><?=$isi['satuan']?></td> 
+                                <td style="text-align:right"><?=rp($isi['diskon'])?></td> 
+                                <td style="text-align:right"><?=rp($isi['harga_jual'])?></td> 
+                                <td style="text-align:right"><?=rp($isi['total_harga'])?></td> 
+                                <td><a class="btn-xs btn-danger"><i class="fa fa-trash"></i></a></td> 
                             </tr>
+                             <?php } ?>
+                             
                          </tbody>
                          <tfoot>
                             <tr>
-                                <td colspan="3" style="width:70%"><h5 class="pull-right"><strong>Total</strong></h5></td>
-                                <td><input class="form-control pull-right" readonly></td> 
+                                <td colspan="5" style="width:70%"><h5 class="pull-right"><strong>Total</strong></h5></td>
+                                <td style="text-align:right"><a class="btn btn-primary">Rp.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <b><?php $t=$penjualan->harga_bayar($con,$_GET['n']); echo rp($t[0]);?></b></a></td> 
                                 <td><a data-toggle="modal" data-target="#bayar" class="btn btn-danger">Bayar</a></td> 
                                 
                             </tr>
@@ -152,22 +179,22 @@
                 
                     <div class="form-group">
                         <label>Total Harga :</label>
-                        <input type="text" name="total_harga" readonly class="form-control">
+                        <input type="text" name="tptotal_harga" readonly class="form-control" value="<?php $t=$penjualan->harga_bayar($con,$_GET['n']); echo rp($t[0]);?>">
+                        <input type="hidden" name="total_harga" readonly class="form-control" value="<?php $t=$penjualan->harga_bayar($con,$_GET['n']); echo $t[0];?>">
                     </div> 
                      
                      <div class="form-group">
                         <label>Bayar :</label>
-                        <input type="text" name="total_harga" class="form-control">
+                        <input type="hidden" name="nota" class="form-control" value="<?=$_GET['n']?>">
+                        <input type="text" name="bayar" class="form-control">
                     </div> 
-                     
-                 
-                 
-                  
-                  
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Batal</button>
-              </div></form> 
+                    
+                   <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Batal</button>&nbsp;
+                  <input name="pay" value="Bayar" class="btn btn-primary" type="submit">
+                  
+               </div></form> 
             </div>
             <!-- /.modal-content -->
           </div>
@@ -197,12 +224,14 @@
                     </thead>
                     <tbody>
                      <?php 
+                        $not = $nt=$penjualan->nota($con,"","8");
+                        $listbarang = $barang->tampil($con);
                         foreach($listbarang as $brg){
                             $stok_harga=$stok->stok_harga($con,$brg['id_barang']);
                         ?>
                     <tr>
                         <td><?=$brg['kd_barang']?></td>    
-                        <td><?=$brg['nm_barang']?></td>    
+                        <td><a href="?p=transaksi&n=<?=$not?>&id_barang=<?=$brg['id_barang']?>"><?=$brg['nm_barang']?></a></td>    
                         <td><?=$brg['jenis']?></td>    
                         <td><?=$brg['stok_akhir']?></td>    
                         <td><?=$stok_harga['harga_jual']?></td>    

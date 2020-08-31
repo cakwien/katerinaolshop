@@ -12,4 +12,10 @@ function bukarhs($isi)
     return $decode;
 }
 
+function rp($angka)
+{
+    $a=number_format($angka,0,',','.');
+    return $a;
+}
+
 ?>
