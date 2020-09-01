@@ -43,7 +43,7 @@
                   <label class="col-sm-3 control-label">Jumlah</label>
 
                   <div class="col-sm-2">
-                    <input type="text" class="form-control" placeholder="..." name="jumlah_jual" required>
+                    <input type="text" class="form-control" placeholder="..." name="jumlah_jual" required autocomplete>
                   </div>
                     
                      <label class="col-sm-2 control-label">Diskon</label>
