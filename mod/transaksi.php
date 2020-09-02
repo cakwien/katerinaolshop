@@ -8,6 +8,13 @@
          return $dt;
      }
      
+     function hitung_barang_terjual($con)
+     {
+         $q=mysqli_query($con,"select sum(jumlah_jual) from penjualan");
+         $dt=mysqli_fetch_array($q);
+         return $dt;
+     }
+
      function nota($con,$awalan,$lebar)
         {
             //$awalan="";
@@ -31,15 +38,15 @@
      
      function batalbarang($con,$id_penjualan,$nota)
      {
-         $q=mysqli_query($con,"delete from penjualan where id_penjualan = '$id_penjualan' and nota ='$nota'");
+         $q=mysqli_query($con,"delete from penjualan where id_penjualan = '$id_penjualan'");
          if ($q)
          {
-             $pesan="Data barang berhasil dihapus...";
-             header('location:?p=transaksi&ps='.rhs($pesan));
+            $pesan="Data barang berhasil dihapus...";
+            header('location:?p=transaksi&n='.$nota.'&ps='.rhs($pesan));
          }else
          {
              $pesan="Data barang gagal dihapus...";
-             header('location:?p=transaksi&pse='.rhs($pesan));
+             header('location:?p=transaksi&n='.$nota.'&pse='.rhs($pesan));
          }
      }
      
@@ -67,7 +74,7 @@
          return $list;
      }
      
-     function barang_harga($con,$id_barang)// --> id_barang, nm_barang, hrg_barang
+     function barang_harga($con,$id_barang)// --> id_barang, nm_barang, hrg_barang, hrg_beli
      {
          $q=mysqli_query($con,"select pembelian.harga_jual, barang.id_barang, barang.nm_barang, barang.kd_barang from pembelian join barang on pembelian.id_barang = barang.id_barang where pembelian.id_barang = '$id_barang' order by time desc limit 1");
          $dt=mysqli_fetch_array($q);
@@ -93,6 +100,17 @@
              $pesan="Pembayaran Gagal...";
              header('location:?p=transaksi&n='.$nota.'&pse='.rhs($pesan));
          }
+     }
+
+      function lap_penjualan($con)
+     {
+        $list=array();
+        $q=mysqli_query($con,"select penjualan.time, penjualan.nota, barang.id_barang,barang.nm_barang, barang.kd_barang, penjualan.jumlah_jual, barang.satuan, penjualan.total_harga from penjualan join barang on penjualan.id_barang = barang.id_barang join jenis on barang.id_jenis = jenis.id_jenis");
+        while($dt=mysqli_fetch_array($q))
+        {
+            $list[]=$dt;
+        }
+        return $list;
      }
      
     

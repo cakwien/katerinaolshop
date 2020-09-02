@@ -149,7 +149,7 @@
         </li>
           
           
-          <li class="treeview">
+          <li class="treeview <?=$in_lap?>">
           <a href="#">
             <i class="fa fa-newspaper-o"></i> <span>Laporan</span>
             <span class="pull-right-container">
@@ -158,7 +158,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="#" data-toggle="modal" data-target="#lapstok"><i class="fa fa-circle-o"></i> Stok Barang</a></li>
-            <li><a href="#" data-toggle="modal" data-target="#lappenjualan"><i class="fa fa-circle-o"></i> Penjualan</a></li>
+            <li class="<?=$hal_lapjual?>"><a href="?p=lapjual"><i class="fa fa-circle-o"></i> Penjualan</a></li>
             
           </ul>
         </li>
@@ -215,6 +215,10 @@
       {
           require_once("transaksi.php");
       }
+      elseif ($p=="lapjual")
+      {
+        require_once("lap_penjualan.php");
+      }
       else
       {
           echo "anda salah alamat";
@@ -228,42 +232,6 @@
       
     <!-- modal laporan-->
 
-      
-      <div class="modal fade" id="lappenjualan">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Laporan Penjualan</h4>
-              </div>
-              <div class="modal-body">
-               <form>
-                
-                   
-                  <div class="form-group">
-                      <label>Dari Tanggal :</label>
-                      <input type="date" name="nm_barang" class="form-control">
-                  </div>
-                   
-                    <div class="form-group">
-                      <label>Hingga Tanggal :</label>
-                      <input type="date" name="nm_barang" class="form-control">
-                  </div>
-                 
-                  
-              </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Batal</button>
-                <a href="#" class="btn btn-primary pull-right">Tampilkan Semua</a>
-                <a href="#" class="btn btn-primary pull-right">Tampilkan</a>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
       
     <!-- modal laporan-->
       

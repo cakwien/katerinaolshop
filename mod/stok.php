@@ -21,6 +21,31 @@ class stok
         return $dt;
     }
 
+    function cek_stok($con,$id_barang)
+    {
+        $q=mysqli_query($con,"select stok_keluar,stok_akhir from barang where id_barang = '$id_barang'");
+        $dt=mysqli_fetch_array($q);
+        return $dt;
+    }
+
+    function edit_stok($con,$stok_keluar,$stok_akhir,$id_barang)
+    {
+        mysqli_query($con,"update barang set stok_keluar='$stok_keluar', stok_akhir = '$stok_akhir' where id_barang = '$id_barang'");
+    }
+
+    function stok_keluar($con,$stok_keluar,$id_barang)
+    {
+        mysqli_query($con,"update barang set stok_keluar = stok_keluar + '$stok_keluar', stok_akhir = stok_akhir - '$stok_keluar' where id_barang = '$id_barang'");
+    }
+
+    function stok_batal($con,$stok_keluar,$id_barang)
+    {
+        mysqli_query($con,"update barang set stok_keluar = stok_keluar - '$stok_keluar', stok_akhir = stok_akhir + '$stok_keluar' where id_barang = '$id_barang'");
+    }
+
+    
+    
+
 }
 
 ?>

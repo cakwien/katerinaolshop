@@ -132,7 +132,6 @@ if (!empty($_GET['p']))
     //TRANSAKSI
     else if($p=="transaksi")
     {
-         
         if (!empty($_GET['n']))
         {
             $nota = $_GET['n'];
@@ -158,6 +157,8 @@ if (!empty($_GET['p']))
                     $d=$_POST['jumlah_jual'];
                     $e=$_POST['diskon'];
                     $f = (floatval($c) * floatval($d)) - floatval($e); //harga x jumlah
+                    //cek stok barang
+                    $stok -> stok_keluar($con,$d,$a);
                     mysqli_query($con,"insert into penjualan value ('','$b','$a','$d','$c','$f','$e','$time')");
                     header('location:?p=transaksi&n='.$b);
                     
@@ -171,6 +172,12 @@ if (!empty($_GET['p']))
                 $pay=$penjualan->bayar($con,$_GET['n'],$_POST['total_harga'],$_POST['bayar'],$kembali,$waktu);
             }
             
+            if (!empty($_GET['batal']))
+            {
+                $stok -> stok_batal($con,$_GET['jk'],$_GET['id']);
+                $penjualan->batalbarang($con,$_GET['batal'],$_GET['n']);
+            }
+            
         }
         
         $hal_trans="active";
@@ -181,10 +188,18 @@ if (!empty($_GET['p']))
     {
         include('view/cetaknota.php');
     }
+
+    else if ($p=="lapjual")
+    {
+        $listpenjualan = $penjualan -> lap_penjualan($con);
+        $jumlah_terjual = $penjualan -> hitung_barang_terjual($con);
+        $hal_lapjual="active";
+        $in_lap="active";
+        include('view/home.php');
+    }
     
     else
     {
-        
         echo "salah alamat";
     }
 }else

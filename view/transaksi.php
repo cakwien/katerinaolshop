@@ -142,7 +142,7 @@
                                 <td style="text-align:right"><?=rp($isi['diskon'])?></td> 
                                 <td style="text-align:right"><?=rp($isi['harga_jual'])?></td> 
                                 <td style="text-align:right"><?=rp($isi['total_harga'])?></td> 
-                                <td><a class="btn-xs btn-danger"><i class="fa fa-trash"></i></a></td> 
+                                <td><a data-confirm="Hapus Barang <?=$isi['nm_barang']?> ?" href="?p=transaksi&n=<?=$isi['nota']?>&batal=<?=$isi['id_penjualan']?>&id=<?=$isi['id_barang']?>&jk=<?=$isi['jumlah_jual']?>" class="btn-xs btn-danger"><i class="fa fa-trash"></i></a></td>
                             </tr>
                              <?php } ?>
                              
