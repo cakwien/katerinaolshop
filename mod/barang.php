@@ -5,7 +5,7 @@ class barang
     function tampil($con)
     {
         $list=array();
-        $q=mysqli_query($con,"select * from barang join jenis on barang.id_jenis = jenis.id_jenis join pembelian where barang.id_barang = pembelian.id_barang");
+        $q=mysqli_query($con,"select * from barang join jenis on barang.id_jenis = jenis.id_jenis");
         while($dt=mysqli_fetch_array($q))
         {
             $list[]=$dt;
@@ -20,6 +20,30 @@ class barang
         $dt=mysqli_fetch_array($q);
         return $dt;
     }
+
+    function edit($con,$id_barang)
+    {
+        $q=mysqli_query($con,"select * from barang join pembelian where barang.id_barang = '$id_barang'");
+        $dt=mysqli_fetch_array($q);
+        return $dt;
+    }
+
+    function update($con,$kd_barang,$nm_barang,$id_jenis,$satuan,$id_barang)
+    {
+        $q=mysqli_query($con,"update barang set kd_barang = '$kd_barang', nm_barang = '$nm_barang', id_jenis = '$id_jenis', satuan = '$satuan' where id_barang = '$id_barang'");
+        if ($q)
+        {
+            $pesan = "Data berhasil di Update";
+            header('location : ?p=barang&ps='.rhs($pesan));
+        }
+        else
+        {
+            $pesan = "Data Gagal di Update";
+            header('location : ?p=barang&pse='.rhs($pesan));
+        }
+    }
+
+    
     
     function simpan($con,$kd_barang,$nm_barang,$id_jenis,$satuan,$stok_awal,$harga_beli,$harga_jual)
     {
@@ -46,13 +70,13 @@ class barang
                     header('location:?p=barang&ps='.rhs($pesan));
                 }else
                 {
-                    $pesan="Barang ".$nm_barang." ditambahkan...";
+                    $pesan="Barang ".$nm_barang." Gagal ditambahkan...";
                     header('location:?p=barang&pse='.rhs($pesan));
                 }
             }
             else
             {
-                $pesan="Barang ".$nm_barang." ditambahkan...";
+                $pesan="Barang ".$nm_barang." Gagal ditambahkan...";
                 header('location:?p=barang&pse='.rhs($pesan));
             }
         }

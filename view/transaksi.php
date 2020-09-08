@@ -43,7 +43,7 @@
                   <label class="col-sm-3 control-label">Jumlah</label>
 
                   <div class="col-sm-2">
-                    <input type="text" class="form-control" placeholder="..." name="jumlah_jual" required autocomplete>
+                    <input type="text" class="form-control" placeholder="..." name="jumlah_jual" required autofocus>
                   </div>
                     
                      <label class="col-sm-2 control-label">Diskon</label>
@@ -60,7 +60,7 @@
               <!-- /.box-body -->
               <div class="box-footer">
                
-                <button type="submit" name="tambah" class="btn btn-success pull-right">Tambahkan</button>
+                <button type="submit" name="tambah" class="btn btn-success pull-right"><i class="fa fa-cart-arrow-down"></i> Tambahkan</button>
               </div>
               <!-- /.box-footer -->
             </form>
@@ -87,10 +87,10 @@
                 </div>
                   
                   <div class="form-group">
-                  <label class="col-sm-3 control-label">Tanggal - Jam</label>
+                  <label class="col-sm-3 control-label">Tanggal</label>
 
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Nama Barang" readonly>
+                    <input type="text" class="form-control" placeholder="Nama Barang" value="<?php echo date('d/m/Y',time()); ?>" readonly>
                   </div>
                 </div>
                   
@@ -98,7 +98,7 @@
                   <label class="col-sm-3 control-label">Kasir</label>
 
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Nama Barang" readonly>
+                    <input type="text" class="form-control" placeholder="Nama Barang" value="<?php $kasir = $induk->useraktif($con,$user); echo $kasir[0];?>" readonly>
                   </div>
                 </div>
                   
@@ -108,11 +108,6 @@
             </form>
           </div>
         </div>
-        
-        
-        
-        
-        
         
         
         <div class="col-md-12">
@@ -145,13 +140,23 @@
                                 <td><a data-confirm="Hapus Barang <?=$isi['nm_barang']?> ?" href="?p=transaksi&n=<?=$isi['nota']?>&batal=<?=$isi['id_penjualan']?>&id=<?=$isi['id_barang']?>&jk=<?=$isi['jumlah_jual']?>" class="btn-xs btn-danger"><i class="fa fa-trash"></i></a></td>
                             </tr>
                              <?php } ?>
-                             
+                        
                          </tbody>
                          <tfoot>
                             <tr>
                                 <td colspan="5" style="width:70%"><h5 class="pull-right"><strong>Total</strong></h5></td>
                                 <td style="text-align:right"><a class="btn btn-primary">Rp.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <b><?php $t=$penjualan->harga_bayar($con,$_GET['n']); echo rp($t[0]);?></b></a></td> 
-                                <td><a data-toggle="modal" data-target="#bayar" class="btn btn-danger">Bayar</a></td> 
+                                <td>
+                                <?php 
+                                  $notaq=$_GET['n'];
+                                  $q=mysqli_query($con,"select id_penjualan from penjualan where nota = '$notaq'");
+                                  $qb=mysqli_fetch_array($q);
+                                  if (!empty($qb[0]))
+                                  {
+                                ?>
+                                <a data-toggle="modal" data-target="#bayar" class="btn btn-danger"><i class="fa fa-money"></i> Bayar</a>
+                                  <?php } ?>
+                                </td> 
                                 
                             </tr>
                          </tfoot>
@@ -186,7 +191,7 @@
                      <div class="form-group">
                         <label>Bayar :</label>
                         <input type="hidden" name="nota" class="form-control" value="<?=$_GET['n']?>">
-                        <input type="text" name="bayar" class="form-control">
+                        <input type="text" name="bayar" class="form-control" autofocus>
                     </div> 
               </div>
               <div class="modal-footer">

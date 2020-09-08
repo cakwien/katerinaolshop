@@ -5,7 +5,19 @@
         }
         
         $user=$_SESSION['username'];
-        //$aktif=$induk->useraktif($con,$user);
+        $aktif=$induk->useraktif($con,$user);
+        $lv = $induk->level($con,$user);
+        if ($lv[0] == "1")
+        {
+          $user_tipe = "Admin";
+          $warna = "red";
+          $warna2 = "danger";
+        }else{
+          $user_tipe = "Kasir";
+          $warna = "green";
+          $warna2="success";
+
+        }
         
 
         
@@ -55,12 +67,12 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition fixed skin-red sidebar-mini">
+<body class="hold-transition fixed skin-<?=$warna?> sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="?p=main" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>K</b>Ol</span>
       <!-- logo for regular state and mobile devices -->
@@ -85,7 +97,10 @@
          
           <!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            <a class="logo-lg"><strong><?=tglindo(date('Y-m-d',time()))?></strong></a>
+          </li>
+          <li>
+            <a><strong id="clock"></strong></a>
           </li>
         </ul>
       </div>
@@ -101,8 +116,8 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Admin Katerina</p>
-          <a href="?p=logout" class="btn-xs btn-danger">Logout</a>
+          <p><?=$aktif['nm_user']?></p>
+          <a class="btn-xs btn-<?=$warna2?>"><?=$user_tipe?></a>
         </div>
       </div>
       <!-- search form -->
@@ -117,6 +132,12 @@
           </a>
         </li>
           
+          <?php 
+
+            if ($lv[0] == "1")
+            {
+          
+          ?>
        
         
          <li class="treeview <?=$in_barang?>">
@@ -130,7 +151,7 @@
             <li class="<?=$hal_jenis?>"><a href="?p=jenis"><i class="fa fa-circle-o"></i> Jenis Barang</a></li>
             <li class="<?=$hal_sup?>"><a href="?p=supplier"><i class="fa fa-circle-o"></i> Supplier</a></li>
             <li class="<?=$hal_barang?>"><a href="?p=barang"><i class="fa fa-circle-o"></i> Data Barang</a></li>
-            <li class=""><a href="#"><i class="fa fa-circle-o"></i> Stok Barang</a></li>
+            <li class="<?=$hal_stokmasuk?>"><a href="?p=stokmasuk"><i class="fa fa-circle-o"></i> Stok Barang</a></li>
           </ul>
         </li>
           
@@ -140,14 +161,15 @@
             <i class="fa fa-users"></i> <span>Member</span>
           </a>
         </li>
-          
+            <?php } ?>
           
             <li class="<?=$hal_trans?>">
           <a href="?p=transaksi&n=<?php echo $nt=$penjualan->nota($con,"","8"); ?>">
-            <i class="fa fa-money"></i> <span>Transaksi</span>
+            <i class="fa  fa-cart-plus"></i> <span>Penjualan</span>
           </a>
         </li>
           
+          <?php if($lv[0] == "1"){ ?>
           
           <li class="treeview <?=$in_lap?>">
           <a href="#">
@@ -157,8 +179,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#" data-toggle="modal" data-target="#lapstok"><i class="fa fa-circle-o"></i> Stok Barang</a></li>
-            <li class="<?=$hal_lapjual?>"><a href="?p=lapjual"><i class="fa fa-circle-o"></i> Penjualan</a></li>
+            <li class="<?=$hal_lapstok?>"><a href="?p=lapstok"><i class="fa fa-circle-o"></i> Lap. Stok Barang</a></li>
+            <li class="<?=$hal_lapjual?>"><a href="?p=lapjual"><i class="fa fa-circle-o"></i> Lap. Penjualan</a></li>
+            <li class=""><a href="?p=lapjual"><i class="fa fa-circle-o"></i> Lap. Laba Rugi</a></li>
             
           </ul>
         </li>
@@ -168,13 +191,19 @@
          <li class="header">SETTING</li>
     
        
-            <li>
-          <a href="#">
+          <li class="<?=$hal_profil?>">
+          <a href="?p=profil">
             <i class="fa fa-home"></i> <span>Setting Profil</span>
           </a>
         </li>
           
-          
+          <?php } ?>
+
+          <li>
+          <a href="?p=logout" data-confirm="Anda ingin keluar dari aplikasi ?">
+            <i class="fa fa-reply"></i> <span>Logout</span>
+          </a>
+        </li>
        
       </ul>
     </section>
@@ -193,7 +222,12 @@
    
        if ($_GET['p'] == "main")
        {
+            if ($lv[0] == "1")
+            {
            require_once("beranda.php");
+            } else{
+              echo "";
+            }
        }
       elseif ($_GET['p'] == "jenis")
       {
@@ -219,6 +253,27 @@
       {
         require_once("lap_penjualan.php");
       }
+      elseif ($p=="profil")
+      {
+        require_once("profil_admin.php");
+      }
+      elseif ($p=="tambahstok")
+      {
+        require_once("tambahstok.php");
+      }
+      elseif($p=="stokmasuk")
+      {
+        require_once("stok_masuk.php");
+      }
+      elseif($p=="lapstok")
+      {
+        require_once('lap_stok.php');
+      }
+      elseif($p=="barang_edit")
+      {
+        require_once('edit_barang.php');
+      }
+      
       else
       {
           echo "anda salah alamat";
@@ -382,27 +437,10 @@
     })
   })
 </script>
-    
-<script>
-    $(document).ready(function() {
-       
-     $('a[data-confirm]').click(function(ev) {
-          var href = $(this).attr('href');
- 
-          if(!$('#dataConfirmModal').length) {
-           $('body').append('<div id="dataConfirmModal" class="modal fade bs-modal-sm" tableindex="-1" role="dialog" aria-labelledby="dataConfirmLabel" aria-hiden="true"><div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header"><h4 class="modal-title" id="dataConfrimLabel">Konfirmasi</h4><button type="button" class="close" data-dismiss="modal" aria-hiden="ture">&times;</button></div><div class="modal-body"></div><div class="modal-footer"><button type="button" class="btn btn-default btn-sx" data-dismiss="modal" aria-hiden=""true"> Tidak </button><a class="btn btn-danger btn-sx" aria-hiden="true" id="dataConfirmOK"> Ya </a></div></div></div></div>');
-           }
- 
-          $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
- 
-          $('#dataConfirmOK').attr('href',href);
- 
-          $('#dataConfirmModal').modal({show:true});
-          return false;
-         });
-       
-    });
-    </script>
+<!-- PESAN KONFIRMASI -->
+<script src="plugins/mycustom/konfirmasi.js"></script>
+<!-- JAM REALTIME / AUTOLOAD -->
+<script type="text/javascript" src="plugins/mycustom/realtime.js"></script>
     
     
 </body>

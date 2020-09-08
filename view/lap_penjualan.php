@@ -12,7 +12,7 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                 Jumlah Barang yang Terjual : <a class="btn-sm btn-danger"><?=$jumlah_terjual[0]?></a>
-                <a class="btn btn-success pull-right"data-toggle="modal" data-target="#print-lap">
+                <a class="btn btn-primary pull-right"data-toggle="modal" data-target="#print-lap">
                 <i class="fa fa-print"></i> Cetak Laporan Penjualan</a>
                 </div>
                 
@@ -28,6 +28,7 @@
                                 <th>QTY</th>
                                 <th>Satuan</th>
                                 <th>Harga Satuan</th>
+                                <th>Diskon</th>
                                 <th>Total Harga</th>
                             </tr>
                         </thead>
@@ -43,10 +44,11 @@
                                 <td><?=$no;?></td>
                                 <td><?=date('d/m/Y',$jual['time'])?></td>
                                 <td><?=$jual['nota']?></td>
-                                <td>(<?=$jual['kd_barang']?>) <?=$jual['nm_barang']?></td>
+                                <td><?=$jual['kd_barang']?> | <?=$jual['nm_barang']?></td>
                                 <td><?=$jual['jumlah_jual']?></td>
                                 <td><?=$jual['satuan']?></td>
                                 <td style="text-align:right"><?=rp($harga_satuan['harga_jual'])?></td>
+                                <td style="text-align:right"><?=rp($jual['diskon'])?></td>
                                 <td style="text-align:right"><?=rp($jual['total_harga'])?></td>
                             </tr>
                             
@@ -64,7 +66,7 @@
     
 
     <div class="modal fade" id="print-lap">
-          <div class="modal-dialog">
+          <div class="modal-dialog"> <form method="post" action="?p=ct_lap_penjualan">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -72,30 +74,30 @@
                 <h4 class="modal-title">Cetak Laporan Penjualan</h4>
               </div>
               <div class="modal-body">
-               <form>
+              
                 
                    
                   <div class="form-group">
                       <label>Dari Tanggal :</label>
-                      <input type="date" name="nm_barang" class="form-control">
+                      <input type="date" name="tgl1" class="form-control" autofocus>
                   </div>
                    
                     <div class="form-group">
                       <label>Hingga Tanggal :</label>
-                      <input type="date" name="nm_barang" class="form-control">
+                      <input type="date" name="tgl2" class="form-control">
                   </div>
                  
                   
-              </form>
+              
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Batal</button>
-                <a href="#" class="btn btn-success pull-right"><i class="fa fa-print"></i> Cetak Semua</a>
-                <a href="#" class="btn btn-primary pull-right"><i class="fa fa-print"></i> Cetak</a>
+                <a href="?p=ct_lap_penjualan_all" class="btn btn-success pull-right"><i class="fa fa-print"></i> Cetak Semua</a>
+                <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-print"></i> Cetak</button>
               </div>
             </div>
             <!-- /.modal-content -->
-          </div>
+          </div></form>
           <!-- /.modal-dialog -->
         </div>
 

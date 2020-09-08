@@ -42,7 +42,7 @@
 
     <form action="" method="post">
       <div class="form-group has-feedback">
-        <input type="text" name="username" class="form-control" placeholder="Username">
+        <input type="text" name="username" class="form-control" placeholder="Username" autofocus>
         <span class="fa fa-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">

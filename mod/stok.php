@@ -43,6 +43,31 @@ class stok
         mysqli_query($con,"update barang set stok_keluar = stok_keluar - '$stok_keluar', stok_akhir = stok_akhir + '$stok_keluar' where id_barang = '$id_barang'");
     }
 
+    function list_stok($con,$id_barang)
+    {
+        $list=array();
+        $q=mysqli_query($con,"select * from pembelian");
+        while(mysqli_fetch_array($q))
+        {
+            $list[]=$dt;
+        }
+        return $list;
+    }
+
+    function stok_masuk($con,$time,$id_barang,$jumlah_beli,$harga_beli,$harga_jual)
+    {
+        $q=mysqli_query($con,"insert into pembelian value('','$time','$id_barang','$jumlah_beli','$harga_beli','$harga_jual')");
+        if ($q)
+        {
+            mysqli_query($con,"update barang set stok_masuk= stok_masuk + '$jumlah_beli', stok_akhir = stok_akhir + '$jumlah_beli' where id_barang = '$id_barang'");
+            $pesan = "Stok barang berhasil di tambahkan...";
+            header('location:?p=stokmasuk&ps='.rhs($pesan));
+        }else{
+            $pesan = "Stok barang Gagal di tambahkan...";
+            header('location:?p=stokmasuk&pse='.rhs($pesan));
+        }
+    }
+
     
     
 

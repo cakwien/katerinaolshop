@@ -45,6 +45,9 @@ $penjualan = new penjualan;
 include('mod/nota.php');
 $nota = new nota;
 
+include('mod/laporan.php');
+$laporan = new laporan;
+
 include('mod/rahasia.php');
 
 include('control/routing.php');

@@ -45,16 +45,15 @@
                                 <td><?=$brg['kd_barang']?></td>
                                 <td><?=$brg['nm_barang']?></td>
                                 <td><?=$brg['jenis']?></td>
-                                <td><?=$stok_harga['harga_beli']?></td>
-                                <td><?=$stok_harga['harga_jual']?></td>
-                                <td><?=$brg['stok_akhir']?></td>
-                                <td><?=$brg['satuan']?></td>
+                                <td style="text-align:right;"><?=rp($stok_harga['harga_beli'])?></td>
+                                <td style="text-align:right;"><?=rp($stok_harga['harga_jual'])?></td>
+                                <td style="text-align:center;"><?=$brg['stok_akhir']?></td>
+                                <td><?=strtolower($brg['satuan'])?></td>
                                 <td>
                                 
                                     <div class="dropdown">
                                        <a href="?p=barang&hapus=<?=$brg['id_barang']?>" title="Hapus Barang" class="btn-sm btn-danger" data-confirm="Hapus <?=$brg['nm_barang']?>?. Ketika menghapus barang akan menghapus data stok dan pembelian barang tersebut."><i class="fa fa-trash"></i></a>
-                                       <a title="Tambah Stok" class="btn-sm btn-success"><i class="fa fa-plus"></i></a>
-                                       <a title="Edit Barang" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                       <a href="?p=barang_edit&edit=<?=$brg['id_barang']?>" title="Edit Barang" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     </div>
                                 
                                 </td>
