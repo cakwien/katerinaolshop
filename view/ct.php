@@ -1,27 +1,6 @@
-<?php
-
-include('mod/rahasia.php');
-$hostDB			= "localhost";
-$usernameDB		= "root";
-$passwordDB		= "";
-$namaDB			= "katerina_olshop";
-//KONEKSI KE DATABASE
-$con = mysqli_connect($hostDB,$usernameDB,$passwordDB,$namaDB);
-//CEK KONEKSI
-if(mysqli_connect_error())
-{
-	echo "GAGAL";
-	die;
-}
-//SET TIMEZONE
-date_default_timezone_set('Asia/Jakarta');?>
-
 Laba Rugi check <br>
 
 <?php
-$tgl1 = strtotime('01 September 2020 00:00:00');
-echo date('d/m/y H:i:s',$tgl1);
-echo $tgl1."<br>";
 //sum harga beli dari semua produk (termasuk penambahan stok)
 $q_sum_hargabeli = mysqli_query($con,"Select sum(harga_beli * jumlah_beli) from pembelian");
 $sum_hargabeli = mysqli_fetch_array($q_sum_hargabeli);

@@ -181,7 +181,7 @@
           <ul class="treeview-menu">
             <li class="<?=$hal_lapstok?>"><a href="?p=lapstok"><i class="fa fa-circle-o"></i> Lap. Stok Barang</a></li>
             <li class="<?=$hal_lapjual?>"><a href="?p=lapjual"><i class="fa fa-circle-o"></i> Lap. Penjualan</a></li>
-            <li class=""><a href="?p=lapjual"><i class="fa fa-circle-o"></i> Lap. Laba Rugi</a></li>
+            <li class="<?=$hal_laplabarugi?>"><a href="?p=laplabarugi"><i class="fa fa-circle-o"></i> Lap. Laba Rugi</a></li>
             
           </ul>
         </li>
@@ -272,6 +272,10 @@
       elseif($p=="barang_edit")
       {
         require_once('edit_barang.php');
+      }
+      elseif($p=="laplabarugi")
+      {
+        require_once('lap_labarugi.php');
       }
       
       else

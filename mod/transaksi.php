@@ -76,7 +76,7 @@
      
      function barang_harga($con,$id_barang)// --> id_barang, nm_barang, hrg_barang, hrg_beli
      {
-         $q=mysqli_query($con,"select pembelian.harga_jual, barang.id_barang, barang.nm_barang, barang.kd_barang from pembelian join barang on pembelian.id_barang = barang.id_barang where pembelian.id_barang = '$id_barang' order by time desc limit 1");
+         $q=mysqli_query($con,"select pembelian.harga_jual, barang.stok_akhir, barang.id_barang, barang.nm_barang, barang.kd_barang from pembelian join barang on pembelian.id_barang = barang.id_barang where pembelian.id_barang = '$id_barang' order by time desc limit 1");
          $dt=mysqli_fetch_array($q);
          return $dt;
      }

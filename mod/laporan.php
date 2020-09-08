@@ -12,6 +12,27 @@ class laporan
         return $list;
     }
 
+    function harga_pokok_penjualan($con)
+    {
+        $q_hpp = mysqli_query($con,"select sum(total_harga_beli) from penjualan");
+        $hpp = mysqli_fetch_array($q_hpp);
+        return $hpp;
+    }
+
+    function penjualan_bersih($con)
+    {
+        $q_jualbersih = mysqli_query($con,"select sum(total_harga_jual) from penjualan");
+        $jualbersih = mysqli_fetch_array($q_jualbersih);
+        return $jualbersih;
+    }
+
+    function diskon($con)
+    {
+        $q_diskon = mysqli_query($con,"select sum(total_diskon) from penjualan");
+        $diskon = mysqli_fetch_array($q_diskon);
+        return $diskon;
+    }
+
     
 }
 ?>

@@ -86,14 +86,6 @@
                   </div>
                 </div>
                   
-                  <div class="form-group">
-                  <label class="col-sm-3 control-label">Tanggal</label>
-
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Nama Barang" value="<?php echo date('d/m/Y',time()); ?>" readonly>
-                  </div>
-                </div>
-                  
                    <div class="form-group">
                   <label class="col-sm-3 control-label">Kasir</label>
 
@@ -106,6 +98,30 @@
               <!-- /.box-body -->
               <!-- /.box-footer -->
             </form>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <!-- Horizontal Form -->
+          <div class="box box-danger">
+          <div class="box-body">
+          <label>Total Harga :</label>
+            <table style="width:100%;">
+              <tr>
+                <td style="text-align: right"><h1><b>Rp. </b></h1></td>
+                <td style="text-align:right;"> <h1><b><?php $t=$penjualan->harga_bayar($con,$_GET['n']); echo rp($t[0]);?></b></h1> </td>
+                <?php 
+                                  $notaq=$_GET['n'];
+                                  $q=mysqli_query($con,"select id_penjualan from penjualan where nota = '$notaq'");
+                                  $qb=mysqli_fetch_array($q);
+                                  if (!empty($qb[0]))
+                                  {
+                                ?>
+                <td style="width:20%; text-align:center;"><button data-toggle="modal" data-target="#bayar" class="btn-lg btn-danger"><i class="fa fa-money"></i> Bayar</button></td>
+                                  <?php } ?>
+              </tr>
+            </table>
+          </div>
           </div>
         </div>
         
@@ -142,24 +158,7 @@
                              <?php } ?>
                         
                          </tbody>
-                         <tfoot>
-                            <tr>
-                                <td colspan="5" style="width:70%"><h5 class="pull-right"><strong>Total</strong></h5></td>
-                                <td style="text-align:right"><a class="btn btn-primary">Rp.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <b><?php $t=$penjualan->harga_bayar($con,$_GET['n']); echo rp($t[0]);?></b></a></td> 
-                                <td>
-                                <?php 
-                                  $notaq=$_GET['n'];
-                                  $q=mysqli_query($con,"select id_penjualan from penjualan where nota = '$notaq'");
-                                  $qb=mysqli_fetch_array($q);
-                                  if (!empty($qb[0]))
-                                  {
-                                ?>
-                                <a data-toggle="modal" data-target="#bayar" class="btn btn-danger"><i class="fa fa-money"></i> Bayar</a>
-                                  <?php } ?>
-                                </td> 
-                                
-                            </tr>
-                         </tfoot>
+                         
                     </table>
                 </div>
             </div>

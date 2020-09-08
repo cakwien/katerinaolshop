@@ -53,9 +53,6 @@
 
 
 <h3>LAPORAN LABA RUGI</h3>
-<div class="tanggal">Tanggal : 00/00/0000 s/d 00/00/0000</div>
-
-<div class="jenis">Jenis : </div>
 <table class="minimalistBlack">
 <thead>
 <tr>

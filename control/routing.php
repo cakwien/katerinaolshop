@@ -169,38 +169,47 @@ if (!empty($_GET['p']))
                 $id_barang=$show_brg['id_barang'];
                 $nm_barang=$show_brg['nm_barang'];
                 $harga_jual=$show_brg['harga_jual'];
+                $stok_akhir = $show_brg['stok_akhir'];
                 
                 if (!empty($_POST['jumlah_jual']))
                 {
-                    $time = time();
-                    //$total_harga = ($_POST['harga_jual'] * $_POST['jumlah_jual']) - $_POST['diskon'];
-                    //$input=$penjualan->tambahbarang($con,$_POST['nota'],$_POST['id_barang'],$_POST['jumlah_jual'],$_POST['harga_jual'],$total_harga,$_POST['diskon'],$time);
-                    //header('location?p=transaksi&n='.$_POST['nota']);
                     
-                    $a=$_POST['id_barang'];
-                    $b=$_POST['nota'];
-                    $c=$_POST['harga_jual'];
-                    $d=$_POST['jumlah_jual'];
-                    $e=$_POST['diskon'];
-                    $f1= $c - $e;
-                    $f = $f1 * $d;
-
-                    $q_harga_beli = mysqli_query($con,"select harga_beli from pembelian where id_barang = '$a' order by time desc limit 1");
-                    $show_harga_beli = mysqli_fetch_array($q_harga_beli);
-                    //total harga beli
-                    $g = $show_harga_beli[0] * $d;
-
-                    //total diskon
-                    $tot_dis = $e * $d;
-
-                    //total harga jual
-
-                    $tot_harga_jual = $d * $c;
-
-                    //cek stok barang
-                    $stok -> stok_keluar($con,$d,$a);
-                    mysqli_query($con,"insert into penjualan value ('','$b','$a','$d','$c','$tot_harga_jual','$g','$f','$e','$tot_dis','$time')");
-                    header('location:?p=transaksi&n='.$b);
+                    if ($_POST['jumlah_jual'] <= $stok_akhir)
+                    {
+                        $time = time();
+                        //$total_harga = ($_POST['harga_jual'] * $_POST['jumlah_jual']) - $_POST['diskon'];
+                        //$input=$penjualan->tambahbarang($con,$_POST['nota'],$_POST['id_barang'],$_POST['jumlah_jual'],$_POST['harga_jual'],$total_harga,$_POST['diskon'],$time);
+                        //header('location?p=transaksi&n='.$_POST['nota']);
+                        
+                        $a=$_POST['id_barang'];
+                        $b=$_POST['nota'];
+                        $c=$_POST['harga_jual'];
+                        $d=$_POST['jumlah_jual'];
+                        $e=$_POST['diskon'];
+                        $f1= $c - $e;
+                        $f = $f1 * $d;
+    
+                        $q_harga_beli = mysqli_query($con,"select harga_beli from pembelian where id_barang = '$a' order by time desc limit 1");
+                        $show_harga_beli = mysqli_fetch_array($q_harga_beli);
+                        //total harga beli
+                        $g = $show_harga_beli[0] * $d;
+    
+                        //total diskon
+                        $tot_dis = $e * $d;
+    
+                        //total harga jual
+    
+                        $tot_harga_jual = $d * $c;
+    
+                        //cek stok barang
+                        $stok -> stok_keluar($con,$d,$a);
+                        mysqli_query($con,"insert into penjualan value ('','$b','$a','$d','$c','$tot_harga_jual','$g','$f','$e','$tot_dis','$time')");
+                        header('location:?p=transaksi&n='.$b);
+                    }
+                    else
+                    {
+                        header('location:?p=transaksi&n='.$b.'&id_barang='.$a.'&pse='.rhs("Jumlah pemelian melebihi persediaan stok barang"));
+                    }
                     
                 }
             }
@@ -318,6 +327,20 @@ if (!empty($_GET['p']))
         $list_stok_barang = $barang->tampil($con);
         
         include('view/cetaklapstok.php');
+    }
+
+    elseif ($p=="laplabarugi")
+    {
+        $hpp=$laporan->harga_pokok_penjualan($con);
+        $jual_bersih = $laporan->penjualan_bersih($con);
+        $diskon = $laporan->diskon($con);
+        
+        $laba_bersih = $jual_bersih[0] - $hpp[0] - $diskon[0]; 
+        
+        
+        $in_lap = "active";
+        $hal_laplabarugi="active";
+        include('view/home.php');
     }
     else
     {
