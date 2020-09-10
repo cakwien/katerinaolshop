@@ -27,7 +27,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Katerina Olshop</title>
+  <title>TOKO 15 | Katerina Olshop</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -76,7 +76,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>K</b>Ol</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Katerina</b>Olshop</span>
+      <span class="logo-lg"><b>Toko </b>15</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
