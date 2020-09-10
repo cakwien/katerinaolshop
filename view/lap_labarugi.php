@@ -11,7 +11,7 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h4 class="pull-left">Periode   </h4>
-                <a class="btn btn-primary pull-right">
+                <a class="btn btn-primary pull-right" href="?p=ct_labarugi">
                 <i class="fa fa-print"></i> Cetak Laporan Laba Rugi</a>
                 </div>
                 

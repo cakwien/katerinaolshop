@@ -124,6 +124,22 @@
         return $list;
      }
 
+     function cari_barang($con,$kd_barang,$nota)
+     {
+         $q=mysqli_query($con,"select * from barang where kd_barang =  '$kd_barang'");
+         $dt=mysqli_fetch_array($q);
+         if (!empty($dt[0]))
+         {
+            $id=$dt['id_barang'];
+            header('location:?p=transaksi&n='.$nota.'&id_barang='.$id);
+         }
+         else
+         {
+            $pesan = "Barang tidak ada...";
+            header('location:?p=transaksi&n='.$nota.'&pse='.rhs($pesan));
+         }
+     }
+
      
     
 }

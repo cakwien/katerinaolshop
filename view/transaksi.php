@@ -9,18 +9,20 @@
             <form class="form-horizontal" method="post" action="">
               <div class="box-body">
                 <div class="form-group">
-                  <label class="col-sm-3 control-label">Barang</label>
+                  <label class="col-sm-3 control-label">Kode Barang</label>
 
                   <div class="col-sm-6">
                     <div class="input-group">
-                        <input type="text" name="kd_barang" value="<?php if(!empty($show_brg['kd_barang'])){echo $show_brg['kd_barang'];} else {echo "";} ?>" class="form-control" readonly>
+                        <input type="text" name="cari_kd" value="<?php if(!empty($show_brg['kd_barang'])){echo $show_brg['kd_barang'];} else {echo "";} ?>" class="form-control" >
                         <div class="input-group-btn">
                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cari"><i class="fa fa-search"></i></button>
                         </div>
                     </div>
                   </div>
                 </div>
-                  
+                </form>
+
+          <form class="form-horizontal" method="post" action="">
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Nama Barang</label>
 
@@ -40,7 +42,7 @@
                 </div>
                   
                 <div class="form-group">
-                  <label class="col-sm-3 control-label">Jumlah</label>
+                  <label class="col-sm-3 control-label">Jumlah <a class="btn-sm btn-danger"><?php if(!empty($show_brg['stok_akhir'])){echo $show_brg['stok_akhir'];} else {echo "";} ?></a></label>
 
                   <div class="col-sm-2">
                     <input type="text" class="form-control" placeholder="..." name="jumlah_jual" required autofocus>
@@ -66,8 +68,6 @@
             </form>
           </div>
         </div>
-        
-        
         
         <!--BOX KANAN -->
          <div class="col-md-6">

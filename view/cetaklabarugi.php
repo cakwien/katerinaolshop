@@ -2,7 +2,10 @@
     table.minimalistBlack {
     font-family: Arial, Helvetica, sans-serif;
     border: 0px solid #000000;
-    width: 100%;
+    width: 60%;
+    height: 20%;
+    margin-left: auto;
+     margin-right: auto;
     text-align: left;
     border-collapse: collapse;
     }
@@ -21,7 +24,7 @@
     font-size: 13px;
     font-weight: bold;
     color: #000000;
-    text-align: left;
+    text-align: center;
     }
     table.minimalistBlack tfoot {
     font-size: 13px;
@@ -33,7 +36,7 @@
     table.minimalistBlack tfoot td {
     font-size: 13px;
     }
-    h3{
+    h3,h4{
         text-align:center;
         font-family: Arial, Helvetica, sans-serif;
     }
@@ -53,37 +56,38 @@
 
 
 <h3>LAPORAN LABA RUGI</h3>
+<h4>TOKO 51</h4>
 <table class="minimalistBlack">
 <thead>
 <tr>
-<th>Tanggal</th>
-<th>No Refrensi</th>
-<th>Unit</th>
-<th>Terjual</th>
-<th>Harga Jual</th>
-<th>Harga Pokok</th>
-<th>Laba / Rugi</th>
+    <th>Keterangan</th>
+    <th>Jumlah (Rp.)</th>
+   
 </tr>
 </thead>
 <tfoot>
 <tr>
-<td colspan="3" style="text-align:right">Total</td>
-<td>foot4</td>
-<td>foot5</td>
-<td>cell4_1</td>
-<td>cell5_1</td>
+<td  style="text-align:right">Total</td>
+<td style="text-align:right"><?=rp($laba_bersih)?></td>
 </tr>
 </tfoot>
 <tbody>
-<tr>
-<td>cell1_1</td>
-<td>cell2_1</td>
-<td>cell3_1</td>
-<td>cell4_1</td>
-<td>cell5_1</td>
-<td>cell4_1</td>
-<td>cell5_1</td>
-</tr>
+
+    <tr>
+        <td>Penjualan Bersih</td>
+        <td style="text-align:right"><?=rp($jual_bersih[0])?></td>
+    </tr>
+
+    <tr>
+        <td>Harga Pokok Penjualan</td>
+        <td style="text-align:right"><?=rp($hpp[0])?></td>
+    </tr>
+
+    <tr>
+        <td>Total Diskon Penjualan</td>
+        <td style="text-align:right"><?=rp($diskon[0])?></td>
+    </tr>
+
 </tbody>
 </tr>
 </table>

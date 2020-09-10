@@ -75,7 +75,7 @@
                   <span aria-hidden="true">&times;</span></button>
                 <h5 class="modal-title">Tambah Data Barang</h5>
               </div>
-                <form method="post" action="">
+              <form method="post" action="">
               <div class="modal-body">
                   <div class="form-group">
                       <label>Barang</label>

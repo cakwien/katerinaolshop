@@ -161,6 +161,13 @@ if (!empty($_GET['p']))
         {
             $nota = $_GET['n'];
             $tampil_pembelian=$penjualan->tampilbarang($con,$nota);
+            if (!empty($_POST['cari_kd']))
+            {
+                $kd_barang = $_POST['cari_kd'];
+                $nta = $_GET['n'];
+                $penjualan->cari_barang($con,$kd_barang,$nta);
+            }
+
             if (!empty($_GET['id_barang']))
             {
                 $id_barang=$_GET['id_barang'];
@@ -266,7 +273,9 @@ if (!empty($_GET['p']))
             $harga_beli  = $_POST['harga_beli'];
             $harga_jual  = $_POST['harga_jual'];
             $time = time();
-            $input = $stok->stok_masuk($con,$time,$id_barang,$jumlah_beli,$harga_beli,$harga_jual);
+            $total_harga_beli = $_POST['harga_beli'] * $_POST['jumlah_beli'];
+            $total_harga_jual = $_POST['harga_jual'] * $_POST['jumlah_beli'];
+            $input = $stok->stok_masuk($con,$time,$id_barang,$jumlah_beli,$harga_beli,$total_harga_beli,$harga_jual,$total_harga_jual);
         }
 
         $hal_stokmasuk="active";
@@ -342,6 +351,16 @@ if (!empty($_GET['p']))
         $hal_laplabarugi="active";
         include('view/home.php');
     }
+    elseif ($p=="ct_labarugi")
+    {
+        $hpp=$laporan->harga_pokok_penjualan($con);
+        $jual_bersih = $laporan->penjualan_bersih($con);
+        $diskon = $laporan->diskon($con);
+        $laba_bersih = $jual_bersih[0] - $hpp[0] - $diskon[0]; 
+        
+        include('view/cetaklabarugi.php');
+    }
+
     else
     {
         echo "salah alamat";

@@ -54,9 +54,9 @@ class stok
         return $list;
     }
 
-    function stok_masuk($con,$time,$id_barang,$jumlah_beli,$harga_beli,$harga_jual)
+    function stok_masuk($con,$time,$id_barang,$jumlah_beli,$harga_beli,$total_harga_beli,$harga_jual,$total_harga_jual)
     {
-        $q=mysqli_query($con,"insert into pembelian value('','$time','$id_barang','$jumlah_beli','$harga_beli','$harga_jual')");
+        $q=mysqli_query($con,"insert into pembelian value('','$time','$id_barang','$jumlah_beli','$harga_beli','$total_harga_beli','$harga_jual','$total_harga_jual')");
         if ($q)
         {
             mysqli_query($con,"update barang set stok_masuk= stok_masuk + '$jumlah_beli', stok_akhir = stok_akhir + '$jumlah_beli' where id_barang = '$id_barang'");
