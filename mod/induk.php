@@ -30,7 +30,7 @@ class induk
         $q=mysqli_query($con,"insert into user value('','$nm_user','$username','$password','$tipe')");
         if ($q)
         {
-            $pesan = "User".$nm_user."Berhasil ditambahkan...";
+            $pesan = "User ".$nm_user." Berhasil ditambahkan...";
             header('location:?p=profil&ps='.rhs($pesan));
         }else
         {

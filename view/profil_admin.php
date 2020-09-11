@@ -42,7 +42,17 @@
                                 <td><?=$mem['nm_user']?></td>
                                 <td><?=$mem['username']?></td>
                                 <td><?=$mem['password']?></td>
-                                <td><?=$mem['level']?></td>
+                                <td>
+                                  <?php
+                                    if($mem['level'] == "1")
+                                    {
+                                      echo '<a class="btn-sm btn-danger">Admin</a>';
+                                    }else{
+                                      echo '<a class="btn-sm btn-success">Kasir</a>';
+                                    }
+                                  ?>
+                              
+                              </td>
                                 <td>
                                 <a href="?p=profil&hapus=<?=$mem['id_user']?>" class="btn-sm btn-danger" data-confirm="Hapus user <?=$mem['nm_user']?> "><i class="fa fa-trash"></i> Hapus</a>
                                 <a href="#" class="btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
@@ -58,9 +68,6 @@
             </div>
         </div>
     </div>
-    
-    
-    
     
     <div class="modal fade" id="tambahdata">
           <div class="modal-dialog">
@@ -89,8 +96,8 @@
                   </div>
                   
                   <div class="form-group">
-                     <label><input name="tipe[]" value="1" type="radio" required> Admin </label><br>
-                     <label><input name="tipe[]" value="2" type="radio" required> Kasir </label>
+                     <label><input name="tipe" value="1" type="radio" required> Admin </label><br>
+                     <label><input name="tipe" value="2" type="radio" required> Kasir </label>
                   </div>
                   
                   
