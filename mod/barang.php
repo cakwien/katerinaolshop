@@ -34,12 +34,12 @@ class barang
         if ($q)
         {
             $pesan = "Data berhasil di Update";
-            header('location : ?p=barang&ps='.rhs($pesan));
+            header('location:?p=barang&ps='.rhs($pesan));
         }
         else
         {
             $pesan = "Data Gagal di Update";
-            header('location : ?p=barang&pse='.rhs($pesan));
+            header('location:?p=barang&pse='.rhs($pesan));
         }
     }
 
@@ -63,8 +63,10 @@ class barang
                 $d=mysqli_fetch_array($qstok);
                 $id=$d['id_barang'];
                 $time=time();
-                $qtambahsok = mysqli_query($con,"insert into pembelian value ('','$time','$id','$stok_awal','$harga_beli','$harga_jual')");
-                if ($qtambahstok)
+                $total_harga_beli = $harga_beli * $stok_awal;
+                $total_harga_jual = $harga_jual * $stok_awal;
+                $qstok= mysqli_query($con,"insert into pembelian value('','$time','$id','$stok_awal','$harga_beli','$total_harga_beli','$harga_jual','$total_harga_jual')");
+                if ($qstok)
                 {
                     $pesan="Barang ".$nm_barang." ditambahkan...";
                     header('location:?p=barang&ps='.rhs($pesan));

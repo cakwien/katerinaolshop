@@ -73,6 +73,12 @@ if (!empty($_GET['p']))
             $time = time();
             $input=$barang->simpan($con,$kd_barang,$nm_barang,$id_jenis,$satuan,$stok_awal,$harga_beli,$harga_jual);
         }
+
+        if (!empty($_GET['hapus']))
+        {
+            $id_barang = $_GET['hapus'];
+            $barang->hapus($con,$id_barang);
+        }
         
         
         $in_barang="active";
@@ -93,15 +99,18 @@ if (!empty($_GET['p']))
             $satuan = $dt['satuan'];
         }
         
-        if (!empty($_POST['edit']))
+        if (!empty($_POST['id_barang']))
         {
             $id_barang = $_POST['id_barang'];
             $kd_barang = $_POST['kd_barang'];
             $nm_barang = $_POST['nm_barang'];
             $satuan = $_POST['satuan'];
             $id_jenis = $_POST['id_jenis'];
-            $input = $barang ->update($con,$kd_barang,$nm_barang,$id_jenis,$satuan,$id_barang);
+            $input=$barang->update($con,$kd_barang,$nm_barang,$id_jenis,$satuan,$id_barang);
         }
+
+        
+
         include('view/home.php');
     }
     
