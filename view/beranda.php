@@ -61,17 +61,19 @@
             <div class="inner">
               <h3><?=$jml_penjualan[0]?></h3>
 
-              <p>Jumlah Transaksi</p>
+              <p>Jumlah Penjualan</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">Info Lengkap <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="?p=lapjual" class="small-box-footer">Info Lengkap <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
           
     </div>
-    
+
+
+
     
     
     

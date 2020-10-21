@@ -93,7 +93,6 @@
          $q=mysqli_query($con,"insert into pembayaran value('','$nota',$total_harga,'$bayar','$kembali','$time')");
          if ($q)
          {
-             
             header('location:?p=ctnota&nota='.$nota);
          }else
          {
@@ -105,7 +104,7 @@
       function lap_penjualan($con)
      {
         $list=array();
-        $q=mysqli_query($con,"select penjualan.id_penjualan,penjualan.time, penjualan.nota, penjualan.diskon, barang.id_barang,barang.nm_barang, barang.kd_barang, penjualan.jumlah_jual, barang.satuan, penjualan.total_harga from penjualan join barang on penjualan.id_barang = barang.id_barang join jenis on barang.id_jenis = jenis.id_jenis");
+        $q=mysqli_query($con,"select penjualan.id_penjualan,penjualan.time, penjualan.harga_jual, penjualan.total_harga_jual, penjualan.harga_beli, penjualan.total_harga_beli, penjualan.nota, penjualan.diskon, barang.id_barang,barang.nm_barang, barang.kd_barang, penjualan.jumlah_jual, barang.satuan, penjualan.total_harga from penjualan join barang on penjualan.id_barang = barang.id_barang join jenis on barang.id_jenis = jenis.id_jenis");
         while($dt=mysqli_fetch_array($q))
         {
             $list[]=$dt;
@@ -117,6 +116,17 @@
      {
         $list=array();
         $q=mysqli_query($con,"select * from penjualan group by nota");
+        while($dt=mysqli_fetch_array($q))
+        {
+            $list[]=$dt;
+        }
+        return $list;
+     }
+
+     function lap_penjualan_2($con)
+     {
+        $list=array();
+        $q=mysqli_query($con,"select * from penjualan join barang on penjualan.id_barang = barang.id_barang");
         while($dt=mysqli_fetch_array($q))
         {
             $list[]=$dt;
@@ -140,6 +150,8 @@
          }
      }
 
+     
+    
      
     
 }

@@ -30,7 +30,7 @@
                             </tr>
                         </thead>
                        
-                        <tbody>
+                        <tbody>      
                         <?php
                             $no=1;
                             foreach($tampilmember as $mem)
@@ -44,7 +44,7 @@
                                 <td><?=$mem['alamat']?></td>
                                 <td><?=$mem['no_hp']?></td>
                                 <td><a href="?p=member&hapus=<?=$mem['id_member']?>" class="btn-sm btn-danger" data-confirm="Hapus member <?=$mem['nm_member']?> "><i class="fa fa-trash"></i> Hapus</a>
-                                <a href="#" class="btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="?p=edit_member&edit=<?=$mem['id_member']?>" class="btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
                                 </td>
                                
                             </tr>

@@ -13,7 +13,7 @@
 
                   <div class="col-sm-6">
                     <div class="input-group">
-                        <input type="text" name="cari_kd" value="<?php if(!empty($show_brg['kd_barang'])){echo $show_brg['kd_barang'];} else {echo "";} ?>" class="form-control" >
+                        <input type="text" name="cari_kd" value="<?php if(!empty($show_brg['kd_barang'])){echo $show_brg['kd_barang'];} else {echo "";} ?>" class="form-control" autofocus>
                         <div class="input-group-btn">
                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cari"><i class="fa fa-search"></i></button>
                         </div>
@@ -190,7 +190,7 @@
                      <div class="form-group">
                         <label>Bayar :</label>
                         <input type="hidden" name="nota" class="form-control" value="<?=$_GET['n']?>">
-                        <input type="text" name="bayar" class="form-control" autofocus>
+                        <input type="text" name="bayar" class="form-control" value="<?php $t=$penjualan->harga_bayar($con,$_GET['n']); echo $t[0];?>" autofocus>
                     </div> 
               </div>
               <div class="modal-footer">

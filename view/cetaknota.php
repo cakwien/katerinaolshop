@@ -1,7 +1,6 @@
 <script>
     window.print();
 </script>
-<meta http-equiv="refresh" content="3;url=?p=transaksi&n=<?php echo $nt=$penjualan->nota($con,"","8"); ?>">
 <style>
     .judul{
         font-size:11px;
@@ -23,20 +22,28 @@ $item=$nota->hitungitem($con,$_GET['nota']);
 ?>
 
 
-
-<div class="judul">Toko 51 (Katerina Olshop)</div>
-<div class="judul">Jalan Banyuwangi</div>
-<div class="judul">Telp. xxxxxxxxxxxxxx</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onblur='window.location.href="?p=transaksi&n=<?php echo $nt=$penjualan->nota($con,"","8"); ?>"'>
+<div class="judul">Toko 15 (Katerina Olshop)</div>
+<div class="judul">JL. Ikan Wijinongko</div>
+<div class="judul">Perum Harapan Indah Blok A15 Banyuwangi</div>
+<div class="judul">Telp. 0896-9693-4598</div>
 <hr>
 
 <div class="judul"><?php echo $_GET['nota']; ?> &nbsp; &nbsp; <?php echo date('d/M/Y H:i',$a['time']); ?></div>
 <hr>
-<table style="width: 100%; ">
+<table style="width: 90%; ">
 <tbody>
 <tr>
 <td>Barang</td>
 <td>QTY</td>
-<td>Sat</td>
+<td style="width:5%;">Sat</td>
 <td>Hrg</td>
 <td>Total</td>
 </tr>
@@ -51,7 +58,7 @@ $item=$nota->hitungitem($con,$_GET['nota']);
     <td colspan="5"><?=$nt['nm_barang']?></td>
 </tr>
 <tr>
-    <td>&nbsp;</td>
+    <td></td>
     <td><?=$nt['jumlah_jual']?></td>
     <td><?=$nt['satuan']?></td>
     <td><?=rp($nt['harga_jual'])?></td>
@@ -86,5 +93,11 @@ $item=$nota->hitungitem($con,$_GET['nota']);
     </tr>
 </table>
 <hr>
-<div class="judul">BARANG YANG SUDAH DI BELI TIDAK DAPAT DI TUKAR/DIKEMBALIKAN</div>
+<div class="judul">BARANG YANG SUDAH DI BELI TIDAK</div>
+<div class="judul">DAPAT DI TUKAR / DIKEMBALIKAN</div>
 <div class="judul">Terimakasih sudah berbelanja di toko kami...</div>
+
+</body>
+</html>
+
+

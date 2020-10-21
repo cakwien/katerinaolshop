@@ -65,6 +65,28 @@ class member
             header('location:?p=member&pse='.rhs($pesan));
         }
     }
+
+    function member_show($con,$id_member)
+    {
+        $q=mysqli_query($con,"Select * from member where id_member = '$id_member'");
+        $dt=mysqli_fetch_array($q);
+        return $dt;
+    }
+
+    function member_update($con,$kd_member, $nm_member, $alamat,$no_hp,$id_member)
+    {
+        $q=mysqli_query($con,"update member set kd_member = '$kd_member',nm_member='$nm_member', alamat= '$alamat',no_hp = '$no_hp' where id_member  = '$id_member'");
+        if ($q)
+        {
+            $pesan = "Member berhasil di update";
+            header('location:?p=member&ps='.rhs($pesan));
+        }
+        else
+        {
+            $pesan = "Mmeber gagal diupdate";
+            header('location:?p=member&pse='.rhs($pesan));
+        }
+    }
 }
 
 ?>

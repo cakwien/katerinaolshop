@@ -55,7 +55,7 @@
                               </td>
                                 <td>
                                 <a href="?p=profil&hapus=<?=$mem['id_user']?>" class="btn-sm btn-danger" data-confirm="Hapus user <?=$mem['nm_user']?> "><i class="fa fa-trash"></i> Hapus</a>
-                                <a href="#" class="btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="?p=edit_profil&edit=<?=$mem['id_user']?>" class="btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
                                 </td>
                                
                             </tr>

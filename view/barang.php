@@ -102,6 +102,16 @@
                           <?php } ?>
                       </select>
                   </div>
+
+                  <div class="form-group">
+                      <label>Supplier</label>
+                      <select name="id_supplier" class="form-control" style="width: 100%;">
+                          <?php foreach ($listsupplier as $sup){ ?>
+                          <option value="<?=$sup['id_supplier']?>"><?=$sup['nm_supplier']?></option>
+                          <?php } ?>
+                      </select>
+                  </div>
+
                    <div class="form-group">
                       <label>Satuan</label>
                       <select name="satuan" class="form-control" style="width: 100%;">

@@ -97,7 +97,7 @@
          
           <!-- Control Sidebar Toggle Button -->
           <li>
-            <a class="logo-lg"><strong><?=tglindo(date('Y-m-d',time()))?></strong></a>
+            <a class="logo-lg"><strong><?=hari(date('D',time()))?>, <?=tglindo(date('Y-m-d',time()))?></strong></a>
           </li>
           <li>
             <a><strong id="clock"></strong></a>
@@ -245,6 +245,10 @@
       {
           require_once("member.php");
       }
+      elseif($p=="edit_member")
+      {
+          require_once("editmember.php");
+      }
       elseif ($p=="transaksi")
       {
           require_once("transaksi.php");
@@ -276,6 +280,10 @@
       elseif($p=="laplabarugi")
       {
         require_once('lap_labarugi.php');
+      }
+      elseif($p=="edit_profil")
+      {
+        require_once('update_profil.php');
       }
       
       else
@@ -338,8 +346,6 @@
       
    
     <!-- /.content -->
-      
-      
       
       
       
@@ -426,7 +432,6 @@
     //Initialize Select2 Elements
     $('.select2').select2()
      })
-    
     
   $(function () {
     

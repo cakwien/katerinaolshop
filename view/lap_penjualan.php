@@ -12,7 +12,7 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                 Jumlah Barang yang Terjual : <a class="btn-sm btn-danger"><?=$jumlah_terjual[0]?></a>
-                <a class="btn btn-primary pull-right"data-toggle="modal" data-target="#print-lap">
+                <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#print-lap">
                 <i class="fa fa-print"></i> Cetak Laporan Penjualan</a>
                 </div>
                 
@@ -47,7 +47,7 @@
                                 <td><?=$jual['kd_barang']?> | <?=$jual['nm_barang']?></td>
                                 <td><?=$jual['jumlah_jual']?></td>
                                 <td><?=$jual['satuan']?></td>
-                                <td style="text-align:right"><?=rp($harga_satuan['harga_jual'])?></td>
+                                <td style="text-align:right"><?=rp($jual['harga_jual'])?></td>
                                 <td style="text-align:right"><?=rp($jual['diskon'])?></td>
                                 <td style="text-align:right"><?=rp($jual['total_harga'])?></td>
                             </tr>

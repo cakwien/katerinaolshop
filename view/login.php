@@ -1,3 +1,21 @@
+<?php
+//session_start();
+if (!empty($_SESSION['username']))
+{
+  if(isset($_COOKIE['login']))
+  {
+    if ($_COOKIE['login']==$_SESSION['username'])
+    {
+      $_SESSION['login'] = TRUE;
+      header('location:?p=main');
+    }else{
+      echo "";
+    }
+  }
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>

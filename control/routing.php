@@ -1,7 +1,4 @@
 <?php
-
-
-
 if (!empty($_GET['p']))
 {
     $p=strtolower($_GET['p']);
@@ -60,18 +57,20 @@ if (!empty($_GET['p']))
         
         $listbarang=$barang->tampil($con);
         $listjenis=$jenis->tampil($con);
+        $listsupplier = $supplier->tampil($con);
         $jml_barang=$barang->hitungbarang($con);
         if (!empty($_POST['simpan']))
         {
             $kd_barang = $_POST['kd_barang'];
             $nm_barang = $_POST['nm_barang'];
             $id_jenis  = $_POST['id_jenis'];
+            $id_supplier = $_POST['id_supplier'];
             $stok_awal = $_POST['stok_awal'];
             $satuan    = $_POST['satuan'];
             $harga_beli = $_POST['harga_beli'];
             $harga_jual = $_POST['harga_jual'];
             $time = time();
-            $input=$barang->simpan($con,$kd_barang,$nm_barang,$id_jenis,$satuan,$stok_awal,$harga_beli,$harga_jual);
+            $input=$barang->simpan($con,$kd_barang,$nm_barang,$id_jenis,$id_supplier,$satuan,$stok_awal,$harga_beli,$harga_jual);
         }
 
         if (!empty($_GET['hapus']))
@@ -160,6 +159,27 @@ if (!empty($_GET['p']))
         
         $hal_member="active";
         include('view/home.php');
+    }
+    elseif ($p=="edit_member")
+    {
+        $id_member = $_GET['edit'];
+        $dt=$member->member_show($con,$id_member);
+        $kd_member = $dt['kd_member'];
+        $nm_member = $dt['nm_member'];
+        $alamat = $dt['alamat'];
+        $no_hp = $dt['no_hp'];
+
+        if (!empty($_POST['nm_member']))
+        {
+            $nm_member = $_POST['nm_member'];
+            $kd_member = $_POST['kd_member'];
+            $alamat = $_POST['alamat'];
+            $no_hp = $_POST['no_hp'];
+            $input = $member->member_update($con,$kd_member, $nm_member, $alamat,$no_hp,$id_member);
+        }
+
+        include('view/home.php');
+
     }
     
     
@@ -256,7 +276,7 @@ if (!empty($_GET['p']))
 
     else if ($p=="lapjual")
     {
-        $listpenjualan = $penjualan -> lap_penjualan($con);
+        $listpenjualan = $penjualan -> lap_penjualan_2($con);
         $listpenjualan2 = $penjualan -> lap_penjualan_1($con);
         $jumlah_terjual = $penjualan -> hitung_barang_terjual($con);
         $hal_lapjual="active";
@@ -310,13 +330,52 @@ if (!empty($_GET['p']))
 
         if (!empty($_GET['hapus']))
         {
-            $ps= "Data user berhasil ditambahkan...";
-            $pse="Data User gagal ditambahkan...";
-            hapus_id($con,"user","id_user",$_GET['hapus'],"profil",$ps,$pse);
+            $id_user = $_GET['hapus'];
+            $induk -> user_hapus($con,$id_user);
         }
         $hal_profil="active";
         include('view/home.php');
         
+
+       
+    }
+
+    elseif ($p=="edit_profil") //update_profil.php
+    {
+        
+
+        if (!empty($_GET['edit']))
+        {
+            $id_user = $_GET['edit'];
+            $dt = $induk->user_show($con,$id_user);
+            $nm_user = $dt['nm_user'];
+            $username = $dt['username'];
+            $password = $dt['password'];
+            $level = $dt['level'];
+        }else{
+            $id_user = "";
+            $nm_user = "";
+            $username = "";
+            $password = "";
+            $level = "";
+        }
+
+        if (!empty($_POST['id_user']))
+        {
+            $nm_user = $_POST['nm_user'];
+            $id_user = $_POST['id_user'];
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $level = $_POST['level'];
+            $id_user = $_POST['id_user'];
+            $input=$induk->update($con,$nm_user,$username,$password,$level,$id_user);
+            //echo "BERHASIL UPDATE";
+        }
+
+        
+
+        $hal_profil="active";
+        include('view/home.php');
     }
 
     //laporan
@@ -349,11 +408,35 @@ if (!empty($_GET['p']))
 
     elseif ($p=="laplabarugi")
     {
-        $hpp=$laporan->harga_pokok_penjualan($con);
-        $jual_bersih = $laporan->penjualan_bersih($con);
-        $diskon = $laporan->diskon($con);
+        if (!empty($_POST['do']))
+        {
+           
+            header('location:?p=laplabarugi&tgl1='.strtotime($_POST['tgl1']).'&tgl2='.strtotime($_POST['tgl2']));
+        }
         
-        $laba_bersih = $jual_bersih[0] - $hpp[0] - $diskon[0]; 
+        if(empty($_GET['tgl1']) && empty($_GET['tgl2']))
+        {
+            $tgl1=""; $tgl2="";
+            $hpp=$laporan->harga_pokok_penjualan($con);
+            $jual_bersih = $laporan->penjualan_bersih($con);
+            $diskon = $laporan->diskon($con);
+            $periode="Keseluruhan";
+            
+            $laba_bersih = $jual_bersih[0] - $hpp[0] - $diskon[0]; 
+        }
+        else
+        {
+           $tgl1 = $_GET['tgl1'];
+           $tgl2 = $_GET['tgl2'] + 86364;
+
+            $periode = "<a class='btn-sm btn-danger'><b>".tglindo(date('Y-m-d',$tgl1))."</b></a> s/d <a class='btn-sm btn-danger'><b>".tglindo(date('Y-m-d',$tgl2))."</b></a>";
+
+            $hpp = $laporan->harga_pokok_penjualan_tgl($con,$tgl1,$tgl2);
+            $jual_bersih = $laporan->penjualan_bersih_tgl($con,$tgl1,$tgl2);
+            $diskon = $laporan->diskon_tgl($con,$tgl1,$tgl2);
+
+            $laba_bersih = $jual_bersih[0] - $hpp[0] - $diskon[0];
+        }
         
         
         $in_lap = "active";
@@ -362,12 +445,41 @@ if (!empty($_GET['p']))
     }
     elseif ($p=="ct_labarugi")
     {
+        $tgl1=""; $tgl2="";
         $hpp=$laporan->harga_pokok_penjualan($con);
         $jual_bersih = $laporan->penjualan_bersih($con);
         $diskon = $laporan->diskon($con);
         $laba_bersih = $jual_bersih[0] - $hpp[0] - $diskon[0]; 
         
         include('view/cetaklabarugi.php');
+    }
+
+    elseif ($p=="ct_labarugi_periode")
+    {
+       
+        if (!empty($_GET['tgl1']) && !empty($_GET['tgl2']))
+        {
+            $tgl1 = $_GET['tgl1'];
+            $tgl2 = $_GET['tgl2'] + 86364;
+
+            $periode = "<a class='btn-sm btn-danger'><b>".tglindo(date('Y-m-d',$tgl1))."</b></a> s/d <a class='btn-sm btn-danger'><b>".tglindo(date('Y-m-d',$tgl2))."</b></a>";
+
+            $hpp = $laporan->harga_pokok_penjualan_tgl($con,$tgl1,$tgl2);
+            $jual_bersih = $laporan->penjualan_bersih_tgl($con,$tgl1,$tgl2);
+            $diskon = $laporan->diskon_tgl($con,$tgl1,$tgl2);
+
+            $laba_bersih = $jual_bersih[0] - $hpp[0] - $diskon[0];
+        }
+        else
+        {
+            $tgl1=""; $tgl2="";
+            $hpp=$laporan->harga_pokok_penjualan($con);
+            $jual_bersih = $laporan->penjualan_bersih($con);
+            $diskon = $laporan->diskon($con);
+            $laba_bersih = $jual_bersih[0] - $hpp[0] - $diskon[0]; 
+        }
+        
+        include('view/cetaklabarugi_per.php');
     }
 
     else

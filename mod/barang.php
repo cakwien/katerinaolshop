@@ -45,7 +45,7 @@ class barang
 
     
     
-    function simpan($con,$kd_barang,$nm_barang,$id_jenis,$satuan,$stok_awal,$harga_beli,$harga_jual)
+    function simpan($con,$kd_barang,$nm_barang,$id_jenis,$id_supplier,$satuan,$stok_awal,$harga_beli,$harga_jual)
     {
         $cek=mysqli_query($con,"select kd_barang from barang where kd_barang = '$kd_barang'");
         $dtcek=mysqli_num_rows($cek);
@@ -56,7 +56,7 @@ class barang
         }
         else
         {
-            $q=mysqli_query($con,"insert into barang value('','$kd_barang','$nm_barang','$id_jenis','$satuan','$stok_awal','','','$stok_awal')");
+            $q=mysqli_query($con,"insert into barang value('','$kd_barang','$nm_barang','$id_jenis','$id_supplier','$satuan','$stok_awal','','','$stok_awal')");
             if ($q)
             {
                 $qstok = mysqli_query($con,"select id_barang from barang where kd_barang = '$kd_barang'");
