@@ -222,9 +222,10 @@ if (!empty($_GET['p']))
                         $c=$_POST['harga_jual'];
                         $d=$_POST['jumlah_jual'];
                         $e=$_POST['diskon'];
-                        $f1= $c - $e;
-                        $f = $f1 * $d;
-    
+                        $f1= $c - $e; // harga jual dikurangi diskon
+                        $f = $f1 * $d; // dikalikan dengan jumlah barang yang di jual
+
+                           
                         $q_harga_beli = mysqli_query($con,"select harga_beli from pembelian where id_barang = '$a' order by time desc limit 1");
                         $show_harga_beli = mysqli_fetch_array($q_harga_beli);
                         //total harga beli
@@ -234,7 +235,7 @@ if (!empty($_GET['p']))
                         $tot_dis = $e * $d;
     
                         //total harga jual
-    
+     
                         $tot_harga_jual = $d * $c;
     
                         //cek stok barang
@@ -480,6 +481,11 @@ if (!empty($_GET['p']))
         }
         
         include('view/cetaklabarugi_per.php');
+    }
+
+    elseif($p=="up")
+    {
+        include('view/home.php');
     }
 
     else

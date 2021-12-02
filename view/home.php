@@ -186,14 +186,19 @@
           </ul>
         </li>
           
-          
-          
          <li class="header">SETTING</li>
     
        
           <li class="<?=$hal_profil?>">
           <a href="?p=profil">
             <i class="fa fa-home"></i> <span>Setting Profil</span>
+          </a>
+        </li>
+
+        
+        <li class="">
+          <a href="?p=up">
+            <i class="fa fa-refresh"></i> <span>Update Aplikasi</span>
           </a>
         </li>
           
@@ -284,6 +289,11 @@
       elseif($p=="edit_profil")
       {
         require_once('update_profil.php');
+      }
+
+      elseif ($p=="up")
+      {
+        require_once('update.php');
       }
       
       else

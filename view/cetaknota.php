@@ -1,6 +1,8 @@
 <script>
     window.print();
+    setTimeout(function(){ window.location.href='?p=transaksi&n=<?php echo $nt=$penjualan->nota($con,"","8"); ?>'; }, 3000);
 </script>
+<!-- <meta http-equiv="refresh" content="1;url=?p=transaksi&n=<?php //echo $nt=$penjualan->nota($con,"","8"); ?>"> -->
 <style>
     .judul{
         font-size:11px;
@@ -29,7 +31,7 @@ $item=$nota->hitungitem($con,$_GET['nota']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body onblur='window.location.href="?p=transaksi&n=<?php echo $nt=$penjualan->nota($con,"","8"); ?>"'>
+<body>
 <div class="judul">Toko 15 (Katerina Olshop)</div>
 <div class="judul">JL. Ikan Wijinongko</div>
 <div class="judul">Perum Harapan Indah Blok A15 Banyuwangi</div>

@@ -25,6 +25,7 @@
                                 <th>Kode</th>
                                 <th>Nama Barang</th>
                                 <th>Jenis Barang</th>
+                                <th>Supplier</th>
                                 <th>Harga Beli</th>
                                 <th>Harga Jual</th>
                                 <th>Stok</th>
@@ -45,6 +46,7 @@
                                 <td><?=$brg['kd_barang']?></td>
                                 <td><?=$brg['nm_barang']?></td>
                                 <td><?=$brg['jenis']?></td>
+                                <td><?=$brg['nm_supplier']?></td>
                                 <td style="text-align:right;"><?=rp($stok_harga['harga_beli'])?></td>
                                 <td style="text-align:right;"><?=rp($stok_harga['harga_jual'])?></td>
                                 <td style="text-align:center;"><?=$brg['stok_akhir']?></td>

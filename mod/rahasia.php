@@ -14,7 +14,7 @@ function bukarhs($isi)
 
 function rp($angka)
 {
-    $a=number_format($angka,2,',','.');
+    $a=number_format($angka,0,',','.');
     return $a;
 }
 
@@ -89,6 +89,12 @@ function hari($hari)
  
 	return $hari_ini;
  
+}
+
+
+function update_zip($con,$file,$file_tmp)
+{
+	
 }
 
 
